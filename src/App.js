@@ -1,12 +1,12 @@
 import { Provider } from 'react-redux';
 import store from './store';
-import Dashboard from './components/Dashboard';
+import MainRouter from './MainRouter';
 import './App.css';
 
 function App() {
   return (
     <Provider store={store}>
-      <Dashboard />
+      <MainRouter />
     </Provider>
   );
 }
