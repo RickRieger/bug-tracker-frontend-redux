@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import firstReducer from './firstReducer';
-
-
+import alert from './alert';
+import auth from './auth';
 export default combineReducers({
-  firstState: firstReducer,
+  alert,
+  auth,
 });
-

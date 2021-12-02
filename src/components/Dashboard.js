@@ -17,9 +17,8 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import { mainListItems, secondaryListItems } from './layout/listItems';
+import Orders from './layout/Orders';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import BugReportIcon from '@mui/icons-material/BugReport';
@@ -27,6 +26,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
 import Chart from 'react-google-charts';
 import Button from '@mui/material/Button';
+import DropDownMenu from './layout/DropDownMenu'
 function Copyright(props) {
   return (
     <Typography
@@ -135,6 +135,7 @@ function DashboardContent() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <DropDownMenu />
           </Toolbar>
         </AppBar>
         <Drawer variant='permanent' open={open}>
@@ -164,12 +165,13 @@ function DashboardContent() {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
+            width:  '80vw',
             overflow: 'auto',
           }}
         >
           <Toolbar />
-          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
+          <Container maxWidth='xl' sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={4}>
               <Grid
                 item
                 xs={12}
@@ -179,7 +181,7 @@ function DashboardContent() {
                 flexDirection='row'
               >
                 <Grid item xs={6} md={6} lg={6}>
-                  <Typography component='p' variant='h4'>
+                  <Typography component='span' variant='h4'>
                     Welcome Rick!
                   </Typography>
                 </Grid>
@@ -212,7 +214,7 @@ function DashboardContent() {
                       Active Projects
                     </Typography>
 
-                    <Typography component='p' variant='h4'>
+                    <Typography component='span' variant='h4'>
                       5
                     </Typography>
                   </Grid>
@@ -235,7 +237,7 @@ function DashboardContent() {
                       Total Tickets
                     </Typography>
 
-                    <Typography component='p' variant='h4'>
+                    <Typography component='span' variant='h4'>
                       15
                     </Typography>
                   </Grid>
@@ -258,7 +260,7 @@ function DashboardContent() {
                       Resolved Tickets
                     </Typography>
 
-                    <Typography component='p' variant='h4'>
+                    <Typography component='span' variant='h4'>
                       6
                     </Typography>
                   </Grid>
@@ -282,7 +284,7 @@ function DashboardContent() {
                       Open Tickets
                     </Typography>
 
-                    <Typography component='p' variant='h4'>
+                    <Typography component='span' variant='h4'>
                       10
                     </Typography>
                   </Grid>
@@ -296,10 +298,10 @@ function DashboardContent() {
               <Grid item xs={12} md={6} lg={3}>
                 <Paper
                   sx={{
-                    p: 1,
+                 
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height: 250,
                   }}
                 >
                   <Chart
@@ -327,10 +329,10 @@ function DashboardContent() {
               <Grid item xs={12} md={6} lg={3}>
                 <Paper
                   sx={{
-                    p: 1,
+        
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height: 250,
                   }}
                 >
                   <Chart
@@ -358,10 +360,10 @@ function DashboardContent() {
               <Grid item xs={12} md={6} lg={3}>
                 <Paper
                   sx={{
-                    p: 1,
+              
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height: 250,
                   }}
                 >
                   <Chart
@@ -389,10 +391,10 @@ function DashboardContent() {
               <Grid item xs={12} md={6} lg={3}>
                 <Paper
                   sx={{
-                    p: 1,
+        
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height: 250,
                   }}
                 >
                   <Chart
@@ -433,31 +435,31 @@ function DashboardContent() {
                     justifyContent='space-between'
                     height='100%'
                   >
-                    <Typography component='p' variant='h4' gutterBottom>
+                    <Typography component='span' variant='h4' gutterBottom>
                       Company Data
                     </Typography>
 
                     <Typography display='flex' justifyContent='space-between'>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         <PeopleIcon /> Members{' '}
                       </Typography>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         5
                       </Typography>
                     </Typography>
                     <Typography display='flex' justifyContent='space-between'>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         <WorkIcon /> Projects{' '}
                       </Typography>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         5
                       </Typography>
                     </Typography>
                     <Typography display='flex' justifyContent='space-between'>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         <BugReportIcon /> Tickets{' '}
                       </Typography>
-                      <Typography component='p' variant='h5'>
+                      <Typography component='span' variant='h5'>
                         15
                       </Typography>
                     </Typography>

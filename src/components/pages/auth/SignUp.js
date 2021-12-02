@@ -1,23 +1,21 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import useNameHooks from './hooks/useNameHooks';
-import useEmailHooks from './hooks/useEmailHooks';
-import usePasswordHooks from './hooks/usePasswordHooks';
-import useConfirmPasswordHooks from './hooks/useConfirmPasswordHooks';
-// import Avatar from '@mui/material/Avatar';
+import useNameHooks from '../../../hooks/useNameHooks';
+import useEmailHooks from '../../../hooks/useEmailHooks';
+import usePasswordHooks from '../../../hooks/usePasswordHooks';
+import useConfirmPasswordHooks from '../../../hooks/useConfirmPasswordHooks';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { register } from '../../../store/actions/authActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 function Copyright(props) {
   return (
     <Typography
@@ -39,6 +37,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [
     firstName,
     handleFirstNameOnChange,
@@ -91,6 +92,9 @@ export default function SignUp() {
         setIsSubmitButtonDisabled(true);
       }
     }
+    if (user) {
+      navigate('/dashboard');
+    }
   }, [
     firstName,
     lastName,
@@ -103,16 +107,24 @@ export default function SignUp() {
     passwordErrorMessage,
     confirmPasswordErrorMessage,
     comparePasswords,
+    user,
+    navigate
   ]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+
+    const userObj = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    dispatch(register(userObj));
   };
 
   return (
@@ -223,8 +235,6 @@ export default function SignUp() {
                     fullWidth
                     name='confirmPassword'
                     label='Confirm Password'
-                    onChange={handlePasswordOnChange}
-                    onBlur={handlePasswordOnBlur}
                     type='password'
                     id='password'
                     onChange={(e) => handleConfirmPasswordOnChange(e)}
@@ -245,17 +255,9 @@ export default function SignUp() {
               >
                 Sign Up
               </Button>
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Guest User
-              </Button>
               <Grid container justifyContent='flex-end'>
                 <Grid item>
-                  <Link href='#' variant='body2'>
+                  <Link href='/sign-in' variant='body2'>
                     Already have an account? Sign in
                   </Link>
                 </Grid>

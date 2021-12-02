@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import './home.css';
 
 function Home() {
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ function Home() {
             variant='contained'
             style={{ margin: 'auto' }}
             onClick={() => {
-              navigate('/sign-up');
+              navigate('/sign-in');
             }}
           >
             Try it out!
