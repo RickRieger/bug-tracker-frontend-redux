@@ -20,7 +20,7 @@ export default function BasicMenu() {
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logout());
-    navigate('/register');
+    navigate('/sign-in');
   };
 
   return (

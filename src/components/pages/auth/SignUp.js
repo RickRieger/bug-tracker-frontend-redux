@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+const SignUp = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -270,3 +270,5 @@ export default function SignUp() {
     </div>
   );
 }
+
+export default SignUp
