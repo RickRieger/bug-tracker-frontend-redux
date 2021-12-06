@@ -1,21 +1,20 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router';
+import Layout from './layout/Layout';
+import Chart from 'react-google-charts';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Orders from './layout/Orders';
+import Projects from './layout/Projects';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
-import Chart from 'react-google-charts';
 import Button from '@mui/material/Button';
-import Layout from './layout/Layout';
-import { useNavigate } from 'react-router';
-
 
 function DashboardContent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <Layout>
       <Grid item xs={12} md={12} lg={12} display='flex' flexDirection='row'>
@@ -33,7 +32,12 @@ function DashboardContent() {
           display='flex'
           justifyContent='space-around'
         >
-          <Button variant='contained' onClick={()=>navigate('/create-project')}>+ Create New Project</Button>
+          <Button
+            variant='contained'
+            onClick={() => navigate('/create-project')}
+          >
+            + Create New Project
+          </Button>
           <Button variant='contained'>+ Create New Ticket</Button>
         </Grid>
       </Grid>
@@ -301,10 +305,10 @@ function DashboardContent() {
           </Grid>
         </Paper>
       </Grid>
-      {/* Recent Orders */}
+      {/* Recent Projects */}
       <Grid item xs={12} md={12} lg={9}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Orders />
+          <Projects />
         </Paper>
       </Grid>
     </Layout>

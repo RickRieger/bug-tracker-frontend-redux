@@ -52,7 +52,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Orders() {
+const Projects = () => {
   return (
     <React.Fragment>
       <Title>Projects</Title>
@@ -85,3 +85,5 @@ export default function Orders() {
     </React.Fragment>
   );
 }
+
+export default Projects

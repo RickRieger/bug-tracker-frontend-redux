@@ -1,4 +1,7 @@
 import * as React from 'react';
+import DropDownMenu from '../layout/DropDownMenu';
+import SideNavItems from '../layout/SideNavItems';
+import Copyright from './Copyright';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,30 +15,9 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../layout/listItems';
-import DropDownMenu from '../layout/DropDownMenu';
-import SideNavItems from '../layout/SideNavItems'
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -82,7 +64,9 @@ const Drawer = styled(MuiDrawer, {
     }),
   },
 }));
+
 const mdTheme = createTheme();
+
 const Layout = ({children}) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -137,11 +121,12 @@ const Layout = ({children}) => {
             }}
           >
             <IconButton onClick={toggleDrawer}>
+            <p style={{fontSize:'15px'}}>Put something here</p>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
-          <List>{mainListItems}</List>
+           <h4>Put something here</h4>
           <Divider />
           <List><SideNavItems/></List>
         </Drawer>

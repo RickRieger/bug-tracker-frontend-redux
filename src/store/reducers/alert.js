@@ -5,12 +5,12 @@ const initialState = {
   typeOfMessage: '',
 };
 
-export default function (state = initialState, action) {
+ const alertReducerFunction = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
     case SET_ALERT:
-      const { isOpen, alertMessage, typeOfMessage } = action.payload;
+      const { isOpen, alertMessage, typeOfMessage } = payload;
       return {
         ...state,
         isOpen,
@@ -20,9 +20,11 @@ export default function (state = initialState, action) {
     case REMOVE_ALERT:
       return {
         ...state,
-        isOpen: false,C
+        isOpen: false,
       };
     default:
       return state;
   }
 }
+
+export default alertReducerFunction

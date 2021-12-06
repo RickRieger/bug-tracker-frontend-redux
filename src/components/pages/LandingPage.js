@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Copyright from '../layout/Copyright';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
+
 
 function Home() {
   const navigate = useNavigate();
@@ -33,11 +35,11 @@ function Home() {
         <CardContent>
           <Typography sx={{ fontSize: 24 }} color='text.secondary' gutterBottom>
             <Typography>
-              <img src='/logo.png' alt='mantis' style={{ width: '120px' }} />
+              <img src='/logo.png' alt='Logo' style={{ width: '120px' }} />
             </Typography>
-            <h1 style={{ display: 'inline', textAlign: 'center' }}>Mantis</h1>
+           Landing Page
           </Typography>
-          <h2>Create Tickets, Assign Developers and Remain Productive.</h2>
+          Create Tickets, Assign Developers and Remain Productive.
         </CardContent>
         <CardActions>
           <Button
@@ -49,7 +51,9 @@ function Home() {
           >
             Try it out!
           </Button>
+          
         </CardActions>
+        <Copyright mt={2}/>
       </Card>
     </div>
   );

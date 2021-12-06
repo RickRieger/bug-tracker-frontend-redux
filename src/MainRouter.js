@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from './requireAuth/RequireAuth';
 import NotRequiredAuth from './requireAuth/NotRequiredAuth';
-import Home from './components/layout/Home';
+import LandingPage from './components/pages/LandingPage';
 import SignUp from './components/pages/auth/SignUp';
 import SignIn from './components/pages/auth/SignIn'
 import Dashboard from './components/Dashboard';
@@ -17,7 +17,7 @@ function MainRouter() {
           path='/'
           element={
             <NotRequiredAuth redirectTo='/dashboard'>
-              <Home />
+              <LandingPage />
             </NotRequiredAuth>
           }
         />

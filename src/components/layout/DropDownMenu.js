@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { logout } from '../../store/actions/authActions';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store/actions/authActions';
-import { useNavigate } from 'react-router';
-export default function BasicMenu() {
+
+const DropDownMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,3 +55,5 @@ export default function BasicMenu() {
     </div>
   );
 }
+
+export default DropDownMenu
