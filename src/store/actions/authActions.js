@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   // LOGIN_FAIL,
   LOGOUT,
+  SET_ALERT,
 } from './types';
 import setAxiosAuthToken from '../../utils/setAxiosAuthToken';
 
@@ -64,16 +65,14 @@ export const register =
         payload: user,
       });
     } catch (err) {
-      console.log('reg err-----', err.response.data.payload);
-      // const errors = err.response.data.errors;
-
-      // if (errors) {
-      //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      // }
-
-      // dispatch({
-      //   type: REGISTER_FAIL,
-      // });
+      dispatch({
+        type:SET_ALERT,
+        payload: {
+          isOpen:true,
+          alertMessage:err.response.data.message,
+          typeOfMessage:'error',
+          },
+      })
     }
   };
 
@@ -108,20 +107,24 @@ export const login =
         payload: user,
       });
 
-      // dispatch(loadUser());
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+        isOpen:true,
+        alertMessage:'You are successfully logged in',
+        typeOfMessage:'success',
+        },
+      });
     } catch (err) {
-      // const errors = err.response.data.errors;
-
-      console.log('errors----', err.response.data.payload);
-      // console.log('err----', err.payload);
-
-      // if (errors) {
-      //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      // }
-
-      // dispatch({
-      //   type: LOGIN_FAIL,
-      // });
+      console.log('here------jj--', err.response.data);
+      dispatch({
+        type:SET_ALERT,
+        payload: {
+          isOpen:true,
+          alertMessage:err.response.data.payload,
+          typeOfMessage:'error',
+          },
+      })
     }
   };
 

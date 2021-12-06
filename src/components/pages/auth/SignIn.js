@@ -198,6 +198,6 @@ const SignIn = () => {
       </Grid>
     </ThemeProvider>
   );
-}
+};
 
-export default SignIn
+export default SignIn;

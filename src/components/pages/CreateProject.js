@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Layout from '../layout/Layout';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,17 +8,37 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import DatePicker from '@mui/lab/DatePicker';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
-
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { submitNewProject } from '../../store/actions/projectActions';
 const CreateProject = () => {
-  const [value, setValue] = React.useState('Controlled');
-  const [value2, setValue2] = React.useState('Controlled');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [state, setState] = useState({
+    projectName: '',
+    description: '',
+    priority: 'Urgent'
+  });
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  function handleOnChange(e) {
+    const { name, value } = e.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
+  }
+ const dispatch = useDispatch()
+ const handleOnSubmit = (e) => {
+   e.preventDefault()
+   setState((state) => ({ ...state, startDate:startDate, endDate:endDate }));
+   dispatch(submitNewProject(state))
+ }
+   
 
   return (
     <Layout>
@@ -25,13 +46,11 @@ const CreateProject = () => {
         item
         xs={12}
         md={12}
-        lg={10}
         sx={{
           p: 2,
           display: 'flex',
           flexDirection: 'row',
           m: 'auto',
-          mt: 20,
         }}
       >
         <Paper
@@ -53,15 +72,16 @@ const CreateProject = () => {
             <Typography component='h1' variant='h5'>
               New Project
             </Typography>
-            <Box component='form' autoComplete='off' noValidate sx={{ mt: 3 }}>
+            <Box component='form' autoComplete='off' noValidate  sx={{ mt: 3 }} onSubmit={handleOnSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <TextField
-                    projectName='projectName'
                     required
                     fullWidth
-                    id='projectName'
+                    name='projectName'
                     label='Project Name'
+                    value={state.projectName}
+                    onChange={handleOnChange}
                     autoFocus
                   />
                 </Grid>
@@ -69,37 +89,61 @@ const CreateProject = () => {
                   <TextField
                     id='outlined-multiline-flexible'
                     label='Description'
+                    name='description'
                     multiline
                     required
                     maxRows={6}
-                    value={value}
-                    onChange={handleChange}
+                    value={state.description}
+                    onChange={handleOnChange}
                     fullWidth
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <DatePicker
-                    fullWidth
-                    openTo='year'
-                    views={['year', 'month', 'day']}
-                    label='Year, month and date'
-                    value={value}
-                    onChange={(newValue) => {
-                      setValue(newValue);
-                    }}
-                    renderInput={(params) => (
-                      <TextField {...params} helperText={null} />
-                    )}
-                  />
-
-
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <Stack spacing={2}>
+                      <DesktopDatePicker
+                        label='Start Date'
+                        inputFormat='MM/dd/yyyy'
+                        value={startDate}
+                        onChange={(e)=>setStartDate(e)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                      <DesktopDatePicker
+                        label='End Date'
+                        inputFormat='MM/dd/yyyy'
+                        value={endDate}
+                        onChange={(e)=>setEndDate(e)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </Stack>
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <InputLabel id='demo-simple-select-label'>
+                      Priority
+                    </InputLabel>
+                    <Select
+                      labelId='demo-simple-select-label'
+                      id='demo-simple-select'
+                      name='priority'
+                      value={state.priority}
+                      label='Priority'
+                      onChange={handleOnChange}
+                    >
+                      <MenuItem value='Urgent'>Urgent</MenuItem>
+                      <MenuItem value='High'>High</MenuItem>
+                      <MenuItem value='Medium'>Medium</MenuItem>
+                      <MenuItem value='Low'>Low</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
                     control={
-                      <Checkbox value='allowExtraEmails' color='primary' />
+                      <Checkbox value='archive' color='primary' />
                     }
-                    label='I want to receive inspiration, marketing promotions and updates via email.'
+                    label='Archived'
                   />
                 </Grid>
               </Grid>
@@ -109,15 +153,8 @@ const CreateProject = () => {
                 variant='contained'
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign Up
+                Create
               </Button>
-              <Grid container justifyContent='flex-end'>
-                <Grid item>
-                  <Link href='#' variant='body2'>
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
         </Paper>
