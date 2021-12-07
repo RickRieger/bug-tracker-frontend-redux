@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { submitNewProject } from '../../store/actions/projectActions';
 import Layout from '../layout/Layout';
+import moment from 'moment';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,24 +22,23 @@ import InputLabel from '@mui/material/InputLabel';
 
 const CreateProject = () => {
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(' ');
   const [state, setState] = useState({
     projectName: '',
     description: '',
-    priority: 'Urgent'
+    priority: 'Urgent',
   });
 
   function handleOnChange(e) {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   }
- const dispatch = useDispatch()
- const handleOnSubmit = (e) => {
-   e.preventDefault()
-   setState((state) => ({ ...state, startDate:startDate, endDate:endDate }));
-   dispatch(submitNewProject(state))
- }
-   
+  const dispatch = useDispatch();
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setState((state) => ({ ...state, startDate: startDate, endDate: endDate }));
+    dispatch(submitNewProject(state));
+  };
 
   return (
     <Layout>
@@ -72,7 +72,13 @@ const CreateProject = () => {
             <Typography component='h1' variant='h5'>
               New Project
             </Typography>
-            <Box component='form' autoComplete='off' noValidate  sx={{ mt: 3 }} onSubmit={handleOnSubmit}>
+            <Box
+              component='form'
+              autoComplete='off'
+              noValidate
+              sx={{ mt: 3 }}
+              onSubmit={handleOnSubmit}
+            >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <TextField
@@ -103,16 +109,22 @@ const CreateProject = () => {
                     <Stack spacing={2}>
                       <DesktopDatePicker
                         label='Start Date'
-                        inputFormat='MM/dd/yyyy'
+                        // inputFormat='MM/dd/yyyy'
+                        formatDate={(date) =>
+                          moment(new Date()).format('MM-DD-YYYY')
+                        }
                         value={startDate}
-                        onChange={(e)=>setStartDate(e)}
+                        onChange={(e) => setStartDate(e)}
                         renderInput={(params) => <TextField {...params} />}
                       />
                       <DesktopDatePicker
                         label='End Date'
-                        inputFormat='MM/dd/yyyy'
+                        // inputFormat='MM/dd/yyyy'
+                        formatDate={(date) =>
+                          moment(new Date()).format('MM-DD-YYYY')
+                        }
                         value={endDate}
-                        onChange={(e)=>setEndDate(e)}
+                        onChange={(e) => setEndDate(e)}
                         renderInput={(params) => <TextField {...params} />}
                       />
                     </Stack>
@@ -140,9 +152,7 @@ const CreateProject = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
-                    control={
-                      <Checkbox value='archive' color='primary' />
-                    }
+                    control={<Checkbox value='archive' color='primary' />}
                     label='Archived'
                   />
                 </Grid>

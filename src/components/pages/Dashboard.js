@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
-import Layout from './layout/Layout';
+import Layout from '../layout/Layout';
 import Chart from 'react-google-charts';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Projects from './layout/Projects';
+import Projects from '../Projects';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import BugReportIcon from '@mui/icons-material/BugReport';
