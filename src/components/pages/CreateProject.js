@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { submitNewProject } from '../../store/actions/projectActions';
 import Layout from '../layout/Layout';
-import moment from 'moment';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,24 +21,45 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 const CreateProject = () => {
+  const navigate = useNavigate();
+  const { navigateAfterProjCreate } = useSelector((state) => state.projects);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(' ');
+  const [endDate, setEndDate] = useState(startDate);
   const [state, setState] = useState({
     projectName: '',
     description: '',
     priority: 'Urgent',
   });
-
+  const { projectName, description, priority } = state;
   function handleOnChange(e) {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   }
+  function handleStartDateOnChange(e) {
+    setStartDate(e);
+    setEndDate(e);
+  }
   const dispatch = useDispatch();
+
+  const onSuccess = (projectId) =>{
+    navigate(`/project-details/${projectId}`)
+  }
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    setState((state) => ({ ...state, startDate: startDate, endDate: endDate }));
-    dispatch(submitNewProject(state));
+    const projObj = {
+      projectName: projectName,
+      description: description,
+      priority: priority,
+      startDate: startDate,
+      endDate: endDate,
+    };
+
+    dispatch(submitNewProject(projObj, onSuccess))
   };
+  
+
+
 
   return (
     <Layout>
@@ -109,20 +130,16 @@ const CreateProject = () => {
                     <Stack spacing={2}>
                       <DesktopDatePicker
                         label='Start Date'
-                        // inputFormat='MM/dd/yyyy'
-                        formatDate={(date) =>
-                          moment(new Date()).format('MM-DD-YYYY')
-                        }
+                        minDate={new Date()}
+                        inputFormat='MM/dd/yyyy'
                         value={startDate}
-                        onChange={(e) => setStartDate(e)}
+                        onChange={(e) => handleStartDateOnChange(e)}
                         renderInput={(params) => <TextField {...params} />}
                       />
                       <DesktopDatePicker
                         label='End Date'
-                        // inputFormat='MM/dd/yyyy'
-                        formatDate={(date) =>
-                          moment(new Date()).format('MM-DD-YYYY')
-                        }
+                        inputFormat='MM/dd/yyyy'
+                        minDate={startDate}
                         value={endDate}
                         onChange={(e) => setEndDate(e)}
                         renderInput={(params) => <TextField {...params} />}
@@ -174,3 +191,9 @@ const CreateProject = () => {
 };
 
 export default CreateProject;
+
+// submit project
+// if there are no issues and created, 
+// navigate to project details
+// pass project id, or name to to a fetch and display the created proj in details
+

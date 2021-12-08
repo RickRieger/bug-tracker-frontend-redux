@@ -52,7 +52,8 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: 'border-box',
     ...(!open && {
-      overflowX: 'hidden',
+      overflowX: 'scroll',
+      overflowY: 'scroll',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

@@ -44,6 +44,7 @@ export const register =
         },
       });
     } catch (err) {
+      console.log(err.response);
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -59,13 +60,12 @@ export const register =
 export const login =
   ({ email, password }) =>
   async (dispatch) => {
+    const body = JSON.stringify({ email, password });
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-
-    const body = JSON.stringify({ email, password });
 
     try {
       const res = await Axios.post('/api/user/login', body, config);
@@ -94,14 +94,16 @@ export const login =
         },
       });
     } catch (err) {
-      dispatch({
-        type: SET_ALERT,
-        payload: {
-          isOpen: true,
-          alertMessage: err.response.data.payload,
-          typeOfMessage: 'error',
-        },
-      });
+      console.log(err.response);
+
+      // dispatch({
+      //   type: SET_ALERT,
+      //   payload: {
+      //     isOpen: true,
+      //     alertMessage: err.response.data.payload,
+      //     typeOfMessage: 'error',
+      //   },
+      // });
     }
   };
 

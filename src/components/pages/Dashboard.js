@@ -142,13 +142,14 @@ function DashboardContent() {
         <Paper
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             height: 250,
+            p:2
           }}
         >
           <Chart
-            width={'100%'}
-            height={'100%'}
+            width={'90%'}
+            height={'90%'}
             chartType='PieChart'
             loader={<div>Loading Chart</div>}
             data={[
@@ -174,6 +175,7 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'column',
             height: 250,
+            
           }}
         >
           <Chart

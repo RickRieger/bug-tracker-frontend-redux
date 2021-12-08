@@ -7,6 +7,7 @@ import SignUp from './components/pages/auth/SignUp';
 import SignIn from './components/pages/auth/SignIn'
 import Dashboard from './components/pages/Dashboard';
 import CreateProject from './components/pages/CreateProject';
+import ProjectDetails from './components/pages/ProjectDetails';
 function MainRouter() {
 
   return (
@@ -52,6 +53,14 @@ function MainRouter() {
           element={
             <RequireAuth redirectTo='/sign-in'>
               <CreateProject />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/project-details/:projectId'
+          element={
+            <RequireAuth redirectTo='/sign-in'>
+              <ProjectDetails />
             </RequireAuth>
           }
         />

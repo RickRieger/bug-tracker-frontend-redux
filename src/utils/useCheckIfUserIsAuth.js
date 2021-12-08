@@ -1,6 +1,5 @@
 import jwtDecode from "jwt-decode";
 import setAxiosAuthToken from "./setAxiosAuthToken";
-import LOGIN from '../store/actions/types'
 import { useDispatch } from "react-redux";
 const useCheckIfUserIsAuth = () => {
   const dispatch = useDispatch()
@@ -9,10 +8,10 @@ const useCheckIfUserIsAuth = () => {
   //if expired return false
   //else return true
   let getJwtToken = window.localStorage.getItem("jwtToken");
+  console.log(getJwtToken)
   if (getJwtToken) {
     const currentTime = Date.now() / 1000;
     let decodedToken = jwtDecode(getJwtToken);
-    console.log(decodedToken)
     if (decodedToken.exp < currentTime) {
       setAxiosAuthToken(null);
       return false;
