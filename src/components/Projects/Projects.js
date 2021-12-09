@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Grid, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -30,41 +30,46 @@ const Projects = ({ projects }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {projects
-            ? projects.slice(0, 3).map((project) => (
-                <TableRow key={project.id}>
-                  <TableCell>{project.projectName}</TableCell>
-                  <TableCell>
-                    {moment(project.startDate).format('MMMM Do, YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(project.endDate).format('MMMM Do, YYYY')}
-                  </TableCell>
-                  <TableCell>{project.developers.length}</TableCell>
-                  <TableCell>{project.tickets.length}</TableCell>
-                  <TableCell align='right'>
-                    <ZoomInIcon
-                      color='primary'
-                      href='#'
-                      onClick={preventDefault}
-                      sx={{ mt: 3 }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))
-            : ''}
+          {projects &&
+            projects.slice(0, 3).map((project) => (
+              <TableRow key={project._id}>
+                <TableCell >{project.projectName}</TableCell>
+                <TableCell>
+                  {moment(project.startDate).format('MMMM Do, YYYY')}
+                </TableCell>
+                <TableCell>
+                  {moment(project.endDate).format('MMMM Do, YYYY')}
+                </TableCell>
+                <TableCell>{project.developers.length}</TableCell>
+                <TableCell>{project.tickets.length}</TableCell>
+                <TableCell align='right'>
+                  <ZoomInIcon
+                    color='primary'
+                    href='#'
+                    onClick={preventDefault}
+                    sx={{ mt: 3 }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
 
-      <span style={{marginTop:'10px',display:'flex' ,justifyContent:'space-between'}}>
-      <Link
-        color='primary'
-        href='#'
-        onClick={preventDefault}
-        style={{ textDecoration: 'none' }}
+      <span
+        style={{
+          marginTop: '10px',
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
       >
-        See all...
-      </Link>
+        <Link
+          color='primary'
+          href='#'
+          onClick={preventDefault}
+          style={{ textDecoration: 'none' }}
+        >
+          See all...
+        </Link>
         <Button variant='contained'>+ Create New Ticket</Button>
       </span>
     </React.Fragment>

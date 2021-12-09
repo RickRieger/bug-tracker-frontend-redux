@@ -1,5 +1,5 @@
 import Axios from '../../utils/Axios';
-import { SET_ALL_PROJECTS, SET_ALERT, SET_NAV_BOOLEAN } from './types';
+import { SET_ALL_PROJECTS, SET_ALERT, SET_SINGLE_PROJECT} from './types';
 export const submitNewProject =
   ({ projectName, description, startDate, endDate, priority }, onSuccess) =>
   async (dispatch) => {
@@ -67,10 +67,20 @@ export const submitNewProject =
     }
   };
 
+export const getProjectById = (id) => async (dispatch) => {
+  try {
+    const res = await Axios.get(`/api/project/get-project-by-id/${id}`);
+
+    dispatch({ type: SET_SINGLE_PROJECT, payload: res.data.payload });
+
+  } catch (err) {
+    console.log('error eeek----', err);
+  }
+};
+
 export const getAllProjects = () => async (dispatch) => {
   try {
     const res = await Axios.get('/api/project/get-all-projects');
-
     dispatch({ type: SET_ALL_PROJECTS, payload: res.data });
   } catch (err) {
     console.log('error eeek----', err);

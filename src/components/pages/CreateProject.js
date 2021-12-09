@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { submitNewProject } from '../../store/actions/projectActions';
 import Layout from '../layout/Layout';
@@ -22,7 +22,6 @@ import InputLabel from '@mui/material/InputLabel';
 
 const CreateProject = () => {
   const navigate = useNavigate();
-  const { navigateAfterProjCreate } = useSelector((state) => state.projects);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(startDate);
   const [state, setState] = useState({
@@ -41,9 +40,9 @@ const CreateProject = () => {
   }
   const dispatch = useDispatch();
 
-  const onSuccess = (projectId) =>{
-    navigate(`/project-details/${projectId}`)
-  }
+  const onSuccess = (projectId) => {
+    navigate(`/project-details/${projectId}`);
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -55,11 +54,8 @@ const CreateProject = () => {
       endDate: endDate,
     };
 
-    dispatch(submitNewProject(projObj, onSuccess))
+    dispatch(submitNewProject(projObj, onSuccess));
   };
-  
-
-
 
   return (
     <Layout>
@@ -70,8 +66,11 @@ const CreateProject = () => {
         sx={{
           p: 2,
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
+          // justifyContent: 'center',
+          alignItems: 'center',
           m: 'auto',
+          marginTop: '10%',
         }}
       >
         <Paper
@@ -84,7 +83,6 @@ const CreateProject = () => {
         >
           <Box
             sx={{
-              marginTop: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -193,7 +191,6 @@ const CreateProject = () => {
 export default CreateProject;
 
 // submit project
-// if there are no issues and created, 
+// if there are no issues and created,
 // navigate to project details
 // pass project id, or name to to a fetch and display the created proj in details
-

@@ -140,7 +140,7 @@ const Layout = ({children}) => {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
-            width: '80vw',
+            width: '100vw',
             overflow: 'auto',
           }}
         >

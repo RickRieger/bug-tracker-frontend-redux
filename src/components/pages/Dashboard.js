@@ -144,45 +144,14 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'row',
             height: 250,
-            p:2
-          }}
-        >
-          <Chart
-            width={'90%'}
-            height={'90%'}
-            chartType='PieChart'
-            loader={<div>Loading Chart</div>}
-            data={[
-              ['Task', 'Hours per Day'],
-              ['Work', 11],
-              ['Eat', 2],
-              ['Commute', 2],
-              ['Watch TV', 2],
-              ['Sleep', 7],
-            ]}
-            options={{
-              title: 'My Daily Activities',
-              // Just add this option
-              is3D: true,
-            }}
-            rootProps={{ 'data-testid': '2' }}
-          />
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={6} lg={3}>
-        <Paper
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: 250,
-            
+            p: 1,
           }}
         >
           <Chart
             width={'100%'}
             height={'100%'}
             chartType='PieChart'
-            loader={<div>Loading Chart</div>}
+            loader={'Loading Chart'}
             data={[
               ['Task', 'Hours per Day'],
               ['Work', 11],
@@ -212,7 +181,7 @@ function DashboardContent() {
             width={'100%'}
             height={'100%'}
             chartType='PieChart'
-            loader={<div>Loading Chart</div>}
+            loader={'Loading Chart'}
             data={[
               ['Task', 'Hours per Day'],
               ['Work', 11],
@@ -242,7 +211,37 @@ function DashboardContent() {
             width={'100%'}
             height={'100%'}
             chartType='PieChart'
-            loader={<div>Loading Chart</div>}
+            loader={'Loading Chart'}
+            data={[
+              ['Task', 'Hours per Day'],
+              ['Work', 11],
+              ['Eat', 2],
+              ['Commute', 2],
+              ['Watch TV', 2],
+              ['Sleep', 7],
+            ]}
+            options={{
+              title: 'My Daily Activities',
+              // Just add this option
+              is3D: true,
+            }}
+            rootProps={{ 'data-testid': '2' }}
+          />
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={6} lg={3}>
+        <Paper
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: 250,
+          }}
+        >
+          <Chart
+            width={'100%'}
+            height={'100%'}
+            chartType='PieChart'
+            loader={'Loading Chart'}
             data={[
               ['Task', 'Hours per Day'],
               ['Work', 11],
@@ -282,7 +281,7 @@ function DashboardContent() {
 
             <Typography display='flex' justifyContent='space-between'>
               <Typography component='span' variant='h5'>
-                <PeopleIcon /> Members{' '}
+                <PeopleIcon /> Members
               </Typography>
               <Typography component='span' variant='h5'>
                 5
@@ -290,7 +289,7 @@ function DashboardContent() {
             </Typography>
             <Typography display='flex' justifyContent='space-between'>
               <Typography component='span' variant='h5'>
-                <WorkIcon /> Projects{' '}
+                <WorkIcon /> Projects
               </Typography>
               <Typography component='span' variant='h5'>
                 5
@@ -298,7 +297,7 @@ function DashboardContent() {
             </Typography>
             <Typography display='flex' justifyContent='space-between'>
               <Typography component='span' variant='h5'>
-                <BugReportIcon /> Tickets{' '}
+                <BugReportIcon /> Tickets
               </Typography>
               <Typography component='span' variant='h5'>
                 15

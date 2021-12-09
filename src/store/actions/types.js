@@ -3,4 +3,4 @@ export const REMOVE_ALERT = 'REMOVE_ALERT';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SET_ALL_PROJECTS = 'SET_ALL_PROJECTS';
-export const SET_NAV_BOOLEAN = 'SET_NAV_BOOLEAN'
+export const SET_SINGLE_PROJECT = 'SET_SINGLE_PROJECT'
