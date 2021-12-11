@@ -4,12 +4,12 @@ import RequireAuth from './utils/requireAuth/RequireAuth';
 import NotRequiredAuth from './utils/requireAuth/NotRequiredAuth';
 import LandingPage from './components/pages/LandingPage';
 import SignUp from './components/pages/auth/SignUp';
-import SignIn from './components/pages/auth/SignIn'
+import SignIn from './components/pages/auth/SignIn';
 import Dashboard from './components/pages/Dashboard';
 import CreateProject from './components/pages/CreateProject';
 import ProjectDetails from './components/pages/ProjectDetails';
+import CreateTicket from './components/pages/CreateTicket';
 function MainRouter() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -61,6 +61,15 @@ function MainRouter() {
           element={
             <RequireAuth redirectTo='/sign-in'>
               <ProjectDetails />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path='/create-ticket'
+          element={
+            <RequireAuth redirectTo='/sign-in'>
+              <CreateTicket />
             </RequireAuth>
           }
         />

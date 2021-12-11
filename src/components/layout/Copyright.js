@@ -11,8 +11,8 @@ const Copyright = (props) => {
       {...props}
     >
       {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        riegercodes
+      <Link color='inherit' href='#'>
+        riegercodes {' '}
       </Link>
       {new Date().getFullYear()}
       {'.'}

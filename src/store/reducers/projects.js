@@ -3,7 +3,6 @@ import { SET_ALL_PROJECTS,SET_SINGLE_PROJECT } from '../actions/types';
 const initialState = {
   project: null,
   projects: null,
-  navigateAfterProjCreate: false,
 };
 
 const projectsReducerFunction = (state = initialState, action) => {

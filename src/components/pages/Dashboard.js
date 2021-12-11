@@ -12,6 +12,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function DashboardContent() {
   const navigate = useNavigate();
@@ -124,7 +125,7 @@ function DashboardContent() {
         >
           <Grid item xs={12}>
             <Typography component='h2' variant='h6' gutterBottom>
-              Open Tickets
+              Unassigned Tickets
             </Typography>
 
             <Typography component='span' variant='h4'>
@@ -153,15 +154,14 @@ function DashboardContent() {
             chartType='PieChart'
             loader={'Loading Chart'}
             data={[
-              ['Task', 'Hours per Day'],
-              ['Work', 11],
-              ['Eat', 2],
-              ['Commute', 2],
-              ['Watch TV', 2],
-              ['Sleep', 7],
+              ['Tickets', 'Number of tickets per project'],
+              ['Weather App', 11],
+              ['Bug Tracker App', 2],
+              ['Recipe App', 2],
+              ['Contact Keeper App', 2],
             ]}
             options={{
-              title: 'My Daily Activities',
+              title: 'Company Ticket Distribution',
               // Just add this option
               is3D: true,
             }}
@@ -183,15 +183,14 @@ function DashboardContent() {
             chartType='PieChart'
             loader={'Loading Chart'}
             data={[
-              ['Task', 'Hours per Day'],
-              ['Work', 11],
-              ['Eat', 2],
-              ['Commute', 2],
-              ['Watch TV', 2],
-              ['Sleep', 7],
+              ['Tickets', 'Number of tickets by status'],
+              ['New', 11],
+              ['Unassigned', 9],
+              ['Development', 3],
+              ['Archived', 5],
             ]}
             options={{
-              title: 'My Daily Activities',
+              title: 'Tickets By Status',
               // Just add this option
               is3D: true,
             }}
@@ -213,15 +212,14 @@ function DashboardContent() {
             chartType='PieChart'
             loader={'Loading Chart'}
             data={[
-              ['Task', 'Hours per Day'],
-              ['Work', 11],
-              ['Eat', 2],
-              ['Commute', 2],
-              ['Watch TV', 2],
-              ['Sleep', 7],
+              ['Tickets', 'Tickets by type'],
+              ['Bug', 11],
+              ['Task', 7],
+              ['New Feature', 5],
+ 
             ]}
             options={{
-              title: 'My Daily Activities',
+              title: 'Tickets By Type',
               // Just add this option
               is3D: true,
             }}
@@ -243,15 +241,14 @@ function DashboardContent() {
             chartType='PieChart'
             loader={'Loading Chart'}
             data={[
-              ['Task', 'Hours per Day'],
-              ['Work', 11],
-              ['Eat', 2],
-              ['Commute', 2],
-              ['Watch TV', 2],
-              ['Sleep', 7],
+              ['Tickets', 'By Priority'],
+              ['Urgent', 1],
+              ['High', 2],
+              ['Medium', 2],
+              ['Low', 3],
             ]}
             options={{
-              title: 'My Daily Activities',
+              title: 'Tickets By Priority',
               // Just add this option
               is3D: true,
             }}

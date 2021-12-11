@@ -113,7 +113,7 @@ const SignUp = () => {
   return (
     <div
       style={{
-        backgroundImage: `url('https://media.istockphoto.com/photos/standard-quality-control-certification-assurance-concept-picture-id1282633951?b=1&k=20&m=1282633951&s=170667a&w=0&h=k3P0GU07EG4z8gFk6zqaR_cqv5C1wGf_40g4nleXwdE=')`,
+        backgroundImage: `url('/bg-image.jpg')`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -124,20 +124,20 @@ const SignUp = () => {
       }}
     >
       <ThemeProvider theme={theme}>
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' >
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: '30%',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              backgroundColor: '#cbcbcb',
+              backgroundColor: '#fff',
               padding: '20px',
             }}
           >
             <Typography component='h1' variant='h5'>
-              <img src='/logo.png' alt='mantis' style={{ width: '80px' }} />
+              <img src='/logo.png' alt='mantis' style={{ width: '220px' }} />
             </Typography>
             <Typography component='h1' variant='h5'>
               Sign up

@@ -78,8 +78,7 @@ const SignIn = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              'url(https://media.istockphoto.com/photos/standard-quality-control-certification-assurance-concept-picture-id1282633951?b=1&k=20&m=1282633951&s=170667a&w=0&h=k3P0GU07EG4z8gFk6zqaR_cqv5C1wGf_40g4nleXwdE=)',
+            backgroundImage: 'url(/bg-image.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light'
@@ -99,9 +98,9 @@ const SignIn = () => {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <Grid item align='center'>
+              <img src='/logo.png' alt='Logo' style={{ width: '220px' }} />
+            </Grid>
             <Typography component='h1' variant='h5'>
               Sign in
             </Typography>
@@ -137,6 +136,7 @@ const SignIn = () => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    disabled
                     value='remember'
                     color='primary'
                     onChange={handleRememberMe}
@@ -149,7 +149,6 @@ const SignIn = () => {
                 fullWidth
                 variant='contained'
                 sx={{ mt: 3, mb: 2 }}
-                disabled={isSubmitButtonDisabled}
               >
                 Sign In
               </Button>
@@ -163,7 +162,7 @@ const SignIn = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href='/register' variant='body2'>
+                  <Link href='#' variant='body2'>
                     Forgot password?
                   </Link>
                 </Grid>

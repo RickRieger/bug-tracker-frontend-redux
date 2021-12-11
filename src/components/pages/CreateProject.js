@@ -167,7 +167,7 @@ const CreateProject = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
-                    control={<Checkbox value='archive' color='primary' />}
+                    control={<Checkbox disabled value='archive' color='primary' />}
                     label='Archived'
                   />
                 </Grid>
@@ -190,7 +190,4 @@ const CreateProject = () => {
 
 export default CreateProject;
 
-// submit project
-// if there are no issues and created,
-// navigate to project details
-// pass project id, or name to to a fetch and display the created proj in details
+

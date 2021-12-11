@@ -79,6 +79,7 @@ export const getProjectById = (id) => async (dispatch) => {
 };
 
 export const getAllProjects = () => async (dispatch) => {
+ console.log('projects----ok----')
   try {
     const res = await Axios.get('/api/project/get-all-projects');
     dispatch({ type: SET_ALL_PROJECTS, payload: res.data });

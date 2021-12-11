@@ -61,6 +61,27 @@ export const login =
   ({ email, password }) =>
   async (dispatch) => {
     const body = JSON.stringify({ email, password });
+
+    if (!email) {
+      return dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Please provide a valid email address',
+          typeOfMessage: 'error',
+        },
+      });
+    }
+    if (!password) {
+      return dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Please provide a valid password',
+          typeOfMessage: 'error',
+        },
+      });
+    }
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -94,16 +115,26 @@ export const login =
         },
       });
     } catch (err) {
-      console.log(err.response);
+      if (err.response.data.payload.wrongEmailFormat) {
+        dispatch({
+          type: SET_ALERT,
+          payload: {
+            isOpen: true,
+            alertMessage: err.response.data.payload.wrongEmailFormat,
+            typeOfMessage: 'error',
+          },
+        });
+      } else {
 
-      // dispatch({
-      //   type: SET_ALERT,
-      //   payload: {
-      //     isOpen: true,
-      //     alertMessage: err.response.data.payload,
-      //     typeOfMessage: 'error',
-      //   },
-      // });
+        dispatch({
+          type: SET_ALERT,
+          payload: {
+            isOpen: true,
+            alertMessage: err.response.data.payload,
+            typeOfMessage: 'error',
+          },
+        });
+      }
     }
   };
 
