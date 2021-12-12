@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,11 +14,26 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-const Tickets = ({ projects }) => {
-  const navigate = useNavigate()
+const Tickets = ({ tickets }) => {
+  const navigate = useNavigate();
+
   return (
-    <React.Fragment>
-      <Title>Tickets</Title>
+    <React.Fragment >
+      <Title >Tickets</Title>
+      <span
+            style={{
+              marginLeft:'auto',
+              marginRight:'0'
+            }}
+          >
+            <Button
+              variant='contained'
+              color='success'
+              onClick={() => navigate('/create-ticket')}
+            >
+              + Create New Ticket
+            </Button>
+          </span>
       <Table size='small'>
         <TableHead>
           <TableRow>
@@ -31,18 +46,16 @@ const Tickets = ({ projects }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {projects &&
-            projects.slice(0, 3).map((project) => (
-              <TableRow key={project._id}>
-                <TableCell >{project.projectName}</TableCell>
+          {tickets &&
+            tickets.map((ticket) => (
+              <TableRow key={ticket._id}>
+                <TableCell>{ticket.title}</TableCell>
                 <TableCell>
-                  {moment(project.startDate).format('MMMM Do, YYYY')}
+                  {ticket.developer ? ticket.developer : 'Unassigned'}
                 </TableCell>
-                <TableCell>
-                  {moment(project.endDate).format('MMMM Do, YYYY')}
-                </TableCell>
-                <TableCell>{project.developers.length}</TableCell>
-                <TableCell>{project.tickets.length}</TableCell>
+                <TableCell>{ticket.priorityLevel}</TableCell>
+                <TableCell>{ticket.createdAt}</TableCell>
+                <TableCell>{ticket.ticketStatus}</TableCell>
                 <TableCell align='right'>
                   <ZoomInIcon
                     color='primary'
@@ -52,29 +65,11 @@ const Tickets = ({ projects }) => {
                   />
                 </TableCell>
               </TableRow>
-            ))} */}
+            ))}
         </TableBody>
       </Table>
 
-      <span
-        style={{
-          marginTop: '10px',
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Link
-          color='primary'
-          href='#'
-          onClick={preventDefault}
-          style={{ textDecoration: 'none' }}
-        >
-          See all...
-        </Link>
-        <Button variant='contained' onClick={
-          ()=> navigate('/create-ticket')
-        }>+ Create New Ticket</Button>
-      </span>
+
     </React.Fragment>
   );
 };

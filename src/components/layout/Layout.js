@@ -68,7 +68,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -77,7 +77,7 @@ const Layout = ({children}) => {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position='absolute' open={open}>
+        <AppBar open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -122,14 +122,16 @@ const Layout = ({children}) => {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-            <p style={{fontSize:'15px'}}>Put something here</p>
+              <p style={{ fontSize: '15px' }}>Put something here</p>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
-           <h4>Put something here</h4>
+          <h4>Put something here</h4>
           <Divider />
-          <List><SideNavItems/></List>
+          <List>
+            <SideNavItems />
+          </List>
         </Drawer>
         <Box
           component='main'

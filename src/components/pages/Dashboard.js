@@ -18,7 +18,7 @@ function DashboardContent() {
   const navigate = useNavigate();
   return (
     <Layout>
-      <Grid item xs={12} md={12} lg={12} display='flex' flexDirection='row'>
+      <Grid item xs={12} md={12} lg={12} >
         <Grid item xs={6} md={6} lg={6}>
           <Typography component='span' variant='h4'>
             Welcome Rick!
@@ -26,20 +26,36 @@ function DashboardContent() {
         </Grid>
         <Grid
           item
-          xs={6}
-          md={6}
-          lg={6}
-          p={2}
+          xs={12}
+          md={12}
+          lg={12}
+          p={1}
           display='flex'
-          justifyContent='space-around'
+          flexDirection='row'
+          flexWrap='wrap'
+          justifyContent='flex-end'
         >
           <Button
             variant='contained'
+            sx={{
+              mx: 2,
+              my:2
+            }}
             onClick={() => navigate('/create-project')}
           >
             + Create New Project
           </Button>
-          <Button variant='contained'>+ Create New Ticket</Button>
+          <Button
+            variant='contained'
+            sx={{
+              mx: 2,
+              my:2
+            }}
+            color='success'
+            onClick={() => navigate('/create-ticket')}
+          >
+            + Create New Ticket
+          </Button>
         </Grid>
       </Grid>
 
@@ -145,6 +161,7 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'row',
             height: 250,
+
             p: 1,
           }}
         >
@@ -164,6 +181,9 @@ function DashboardContent() {
               title: 'Company Ticket Distribution',
               // Just add this option
               is3D: true,
+              titleTextStyle: {
+                fontSize: 18,
+              },
             }}
             rootProps={{ 'data-testid': '2' }}
           />
@@ -175,6 +195,7 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'column',
             height: 250,
+            p: 1,
           }}
         >
           <Chart
@@ -191,8 +212,11 @@ function DashboardContent() {
             ]}
             options={{
               title: 'Tickets By Status',
-              // Just add this option
+
               is3D: true,
+              titleTextStyle: {
+                fontSize: 18,
+              },
             }}
             rootProps={{ 'data-testid': '2' }}
           />
@@ -204,6 +228,7 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'column',
             height: 250,
+            p: 1,
           }}
         >
           <Chart
@@ -216,12 +241,14 @@ function DashboardContent() {
               ['Bug', 11],
               ['Task', 7],
               ['New Feature', 5],
- 
             ]}
             options={{
               title: 'Tickets By Type',
               // Just add this option
               is3D: true,
+              titleTextStyle: {
+                fontSize: 18,
+              },
             }}
             rootProps={{ 'data-testid': '2' }}
           />
@@ -233,6 +260,7 @@ function DashboardContent() {
             display: 'flex',
             flexDirection: 'column',
             height: 250,
+            p: 1,
           }}
         >
           <Chart
@@ -251,6 +279,9 @@ function DashboardContent() {
               title: 'Tickets By Priority',
               // Just add this option
               is3D: true,
+              titleTextStyle: {
+                fontSize: 18,
+              },
             }}
             rootProps={{ 'data-testid': '2' }}
           />
@@ -262,6 +293,7 @@ function DashboardContent() {
           sx={{
             p: 2,
             height: '100%',
+            p: 3,
           }}
         >
           <Grid

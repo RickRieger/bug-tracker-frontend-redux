@@ -61,8 +61,8 @@ const SignIn = () => {
 
     // eslint-disable-next-line no-console
     const userObj = {
-      email: 'guest@gmail.com',
-      password: 'Guest251#',
+      email: 'john@doe.com',
+      password: 'Apple251#',
     };
 
     dispatch(login(userObj));

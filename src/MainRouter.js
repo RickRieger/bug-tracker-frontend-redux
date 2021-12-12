@@ -9,6 +9,7 @@ import Dashboard from './components/pages/Dashboard';
 import CreateProject from './components/pages/CreateProject';
 import ProjectDetails from './components/pages/ProjectDetails';
 import CreateTicket from './components/pages/CreateTicket';
+import AddTeam from './components/pages/AddTeam';
 function MainRouter() {
   return (
     <BrowserRouter>
@@ -70,6 +71,14 @@ function MainRouter() {
           element={
             <RequireAuth redirectTo='/sign-in'>
               <CreateTicket />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/add-team-members/:projectId'
+          element={
+            <RequireAuth redirectTo='/sign-in'>
+              <AddTeam />
             </RequireAuth>
           }
         />

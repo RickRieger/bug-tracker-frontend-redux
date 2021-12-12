@@ -44,7 +44,7 @@ export const submitNewTicket =
       onSuccess(projectId)
 
     } catch (err) {
-      console.log(err);
+     
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -57,31 +57,26 @@ export const submitNewTicket =
   };
 
 export const getAllTicketsByProjectId = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
   try {
-    const res = await Axios.get(`/api/ticket/get-all-tickets-by-project-id/${id}`);
-    dispatch({ type: SET_ALL_TICKETS, payload: res.data });
+    const res = await Axios.get(`/api/ticket/get-all-tickets-by-project-id/${id}`, config);
+    dispatch({ type: SET_ALL_TICKETS, payload: res.data.tickets });
+
   } catch (err) {
-    console.log('error eeek----', err);
+    console.log(err)
+    // dispatch({
+    //   type: SET_ALERT,
+    //   payload: {
+    //     isOpen: true,
+    //     alertMessage: err.response.data.message,
+    //     typeOfMessage: 'error',
+    //   },
+    // });
   }
 };
 
 
-// export const getProjectById = (id) => async (dispatch) => {
-//   try {
-//     const res = await Axios.get(`/api/project/get-project-by-id/${id}`);
-
-//     dispatch({ type: SET_SINGLE_PROJECT, payload: res.data.payload });
-
-//   } catch (err) {
-//     console.log('error eeek----', err);
-//   }
-// };
-
-// export const getAllProjects = () => async (dispatch) => {
-//   try {
-//     const res = await Axios.get('/api/project/get-all-projects');
-//     dispatch({ type: SET_ALL_PROJECTS, payload: res.data });
-//   } catch (err) {
-//     console.log('error eeek----', err);
-//   }
-// };

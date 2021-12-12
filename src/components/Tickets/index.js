@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProjects } from '../../store/actions/projectActions';
-import Projects from './Tickets';
+import {  useSelector } from 'react-redux';
+import Tickets from './Tickets';
 
-const ProjectsWrapper = () => {
-  const { projects } = useSelector(
-    (state) => state.projects
+const TicketsWrapper = () => {
+  const { tickets } = useSelector(
+    (state) => state.tickets
   );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllProjects());
-  }, [dispatch]);
-  return <Projects projects={projects} />;
+  return <Tickets tickets={tickets} />;
 };
 
-export default ProjectsWrapper;
+export default TicketsWrapper;

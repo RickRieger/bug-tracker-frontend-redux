@@ -9,12 +9,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../layout/Title';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import { useNavigate } from 'react-router';
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
 const Projects = ({ projects }) => {
+  const navigate = useNavigate()
   return (
     <React.Fragment>
       <Title>Projects</Title>
@@ -46,7 +48,7 @@ const Projects = ({ projects }) => {
                   <ZoomInIcon
                     color='primary'
                     href='#'
-                    onClick={preventDefault}
+                    onClick={()=>{navigate(`/project-details/${project._id}`)}}
                     sx={{ mt: 3 }}
                   />
                 </TableCell>
@@ -70,7 +72,6 @@ const Projects = ({ projects }) => {
         >
           See all...
         </Link>
-        <Button variant='contained'>+ Create New Ticket</Button>
       </span>
     </React.Fragment>
   );
