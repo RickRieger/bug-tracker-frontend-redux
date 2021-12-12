@@ -72,7 +72,7 @@ const CreateTicket = () => {
           flexDirection: 'column',
           alignItems: 'center',
           m: 'auto',
-          marginTop: '10%',
+          // my: '30%',
           width: '50%',
         }}
       >
@@ -81,7 +81,7 @@ const CreateTicket = () => {
             p: 2,
             display: 'flex',
             flexDirection: 'row',
-            margin: 'auto',
+            // margin: 'auto',
             width: '100%',
           }}
         >

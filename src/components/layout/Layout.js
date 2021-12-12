@@ -121,13 +121,22 @@ const Layout = ({ children }) => {
               px: [1],
             }}
           >
+            <img
+              src='/logo.png'
+              alt='Logo'
+              style={{
+                width: '160px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+            />
+
             <IconButton onClick={toggleDrawer}>
-              <p style={{ fontSize: '15px' }}>Put something here</p>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
-          <h4>Put something here</h4>
+          Rick Rieger
           <Divider />
           <List>
             <SideNavItems />
