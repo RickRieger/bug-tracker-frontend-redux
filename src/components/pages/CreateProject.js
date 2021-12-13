@@ -70,7 +70,6 @@ const CreateProject = () => {
           // justifyContent: 'center',
           alignItems: 'center',
           m: 'auto',
-          marginTop: '10%',
         }}
       >
         <Paper

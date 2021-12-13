@@ -62,6 +62,7 @@ const Tickets = ({ tickets }) => {
                     href='#'
                     onClick={preventDefault}
                     sx={{ mt: 3 }}
+                    onClick={()=>{navigate(`/ticket-details/${ticket._id}`)}}
                   />
                 </TableCell>
               </TableRow>

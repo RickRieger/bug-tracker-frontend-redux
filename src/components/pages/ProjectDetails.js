@@ -63,7 +63,7 @@ const ProjectDetails = () => {
         justifyContent='center'
       >
         <Typography component='span' variant='h4' sx={{ mb: 2 }}>
-          {project.projectName}
+          Project:{' '}{project.projectName}
         </Typography>
       </Grid>
       <Grid
@@ -95,9 +95,20 @@ const ProjectDetails = () => {
               <Grid item component='span' xs={6} md={6} lg={6}>
                 Project Manager:
               </Grid>
-              <Grid item component='span' xs={6} md={6} lg={6}>
-                Bill Frizell
-              </Grid>
+              
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='warning'
+                height='5px'
+                // onClick={() => {
+                //   navigate(`/add-team-members/${project._id}`);
+                // }}
+              >
+                + Add Manager
+              </Button>
+       
             </Typography>
             <Typography display='flex' justifyContent='start' sx={{ m: 1 }}>
               <Grid item component='span' xs={6} md={6} lg={6}>
@@ -163,7 +174,7 @@ const ProjectDetails = () => {
                   navigate(`/add-team-members/${project._id}`);
                 }}
               >
-                + Add
+                + Add Team Memeber
               </Button>
             </Typography>
 
