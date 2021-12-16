@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../layout/Layout';
 import Chart from 'react-google-charts';
 import Typography from '@mui/material/Typography';
@@ -13,12 +14,16 @@ import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { getAllUsers } from '../../store/actions/personnelActions';
 function DashboardContent() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+  dispatch(getAllUsers())
+  }, [dispatch])
   return (
     <Layout>
-      <Grid item xs={12} md={12} lg={12} >
+      <Grid item xs={12} md={12} lg={12}>
         <Grid item xs={6} md={6} lg={6}>
           <Typography component='span' variant='h4'>
             Welcome Rick!
@@ -39,7 +44,7 @@ function DashboardContent() {
             variant='contained'
             sx={{
               mx: 2,
-              my:2
+              my: 2,
             }}
             onClick={() => navigate('/create-project')}
           >
@@ -49,7 +54,7 @@ function DashboardContent() {
             variant='contained'
             sx={{
               mx: 2,
-              my:2
+              my: 2,
             }}
             color='success'
             onClick={() => navigate('/create-ticket')}

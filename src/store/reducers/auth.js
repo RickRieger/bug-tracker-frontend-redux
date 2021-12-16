@@ -1,7 +1,6 @@
 import { LOGIN, LOGOUT } from '../actions/types';
 
 const initialState = {
-  loading: false,
   user: null,
 };
 
