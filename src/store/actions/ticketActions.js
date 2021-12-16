@@ -31,7 +31,7 @@ export const submitNewTicket =
     });
   console.log(body)
     try {
-      const res = await Axios.post('/api/ticket/create-ticket', body, config);
+      const res = await Axios.post('/ticket/create-ticket', body, config);
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -63,7 +63,7 @@ export const getAllTicketsByProjectId = (id) => async (dispatch) => {
     },
   };
   try {
-    const res = await Axios.get(`/api/ticket/get-all-tickets-by-project-id/${id}`, config);
+    const res = await Axios.get(`/ticket/get-all-tickets-by-project-id/${id}`, config);
     dispatch({ type: SET_ALL_TICKETS, payload: res.data.tickets });
 
   } catch (err) {

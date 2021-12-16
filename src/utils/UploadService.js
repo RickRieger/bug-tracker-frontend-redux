@@ -6,7 +6,7 @@ class UploadFilesService {
 
     formData.append("file", file);
 
-    return Axios.post("/api/ticket/upload-file-to-ticket", formData, {
+    return Axios.post("/ticket/upload-file-to-ticket", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

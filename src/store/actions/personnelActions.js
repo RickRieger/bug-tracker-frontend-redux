@@ -8,7 +8,7 @@ export const getAllUsers = () => async (dispatch) => {
     },
   };
   try {
-    const res = await Axios.get('/api/user/get-all-users', config);
+    const res = await Axios.get('/user/get-all-users', config);
     dispatch({ type: SET_ALL_PERSONNEL, payload: res.data });
   } catch (err) {
     console.log(err)
@@ -24,7 +24,7 @@ export const getAllUsers = () => async (dispatch) => {
 };
 export const getAllUsersAssignedToProject = (id) => async (dispatch) => {
   try {
-    const res = await Axios.get(`/api/user/get-all-users-by-project-id/${id}`);
+    const res = await Axios.get(`/user/get-all-users-by-project-id/${id}`);
     dispatch({ type: SET_PERSONNEL_BY_PROJECT, payload: res.data });
   } catch (err) {
     dispatch({

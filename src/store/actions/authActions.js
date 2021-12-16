@@ -16,7 +16,7 @@ export const register =
     const body = JSON.stringify({ firstName, lastName, email, password });
 
     try {
-      const res = await Axios.post('/api/user/sign-up', body, config);
+      const res = await Axios.post('/user/sign-up', body, config);
 
       let jwtToken = res.data.payload;
 
@@ -89,7 +89,7 @@ export const login =
     };
 
     try {
-      const res = await Axios.post('/api/user/login', body, config);
+      const res = await Axios.post('/user/login', body, config);
       let jwtToken = res.data.payload;
 
       setAxiosAuthToken(jwtToken);
