@@ -115,6 +115,7 @@ export const login =
         },
       });
     } catch (err) {
+      console.log('hello---', err)
       if (err.response.data.payload.wrongEmailFormat) {
         dispatch({
           type: SET_ALERT,
