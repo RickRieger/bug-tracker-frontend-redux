@@ -48,6 +48,8 @@ const ProjectDetails = () => {
       case 'Low':
         color = 'info.light';
         break;
+      default:
+        color = 'info.light'
     }
   }
 

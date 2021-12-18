@@ -29,7 +29,7 @@ const AddTeam = () => {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getProjectById(projectId));
-  }, [dispatch]);
+  }, [dispatch, projectId]);
 
   if (!project || !allPersonnel) {
     return (

@@ -35,7 +35,7 @@ const CreateTicket = () => {
     priorityLevel: '',
     ticketType: '',
   });
-  const { title, description, projectId, priority, type } = state;
+
   function handleOnChange(e) {
     const { name, value } = e.target;
 
@@ -58,7 +58,6 @@ const CreateTicket = () => {
       </Layout>
     );
   }
-  console.log(projects);
   return (
     <Layout>
       <Grid

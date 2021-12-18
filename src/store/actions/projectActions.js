@@ -41,7 +41,6 @@ export const submitNewProject =
     try {
       const res = await Axios.post('/project/create-project', body, config);
 
-      console.log(res.data.payload);
       const projectId = res.data.payload._id;
       dispatch({
         type: SET_ALERT,
@@ -54,7 +53,6 @@ export const submitNewProject =
 
       onSuccess(projectId);
     } catch (err) {
-      console.log(err);
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -96,7 +94,6 @@ export const addPersonnelToProject =
       onSuccess(projectId)
 
     } catch (err) {
-      console.log(err)
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -109,7 +106,6 @@ export const addPersonnelToProject =
   };
 
 export const getAllProjects = () => async (dispatch) => {
-  console.log('projects----ok----');
   try {
     const res = await Axios.get('/project/get-all-projects');
     dispatch({ type: SET_ALL_PROJECTS, payload: res.data });

@@ -1,24 +1,18 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router';
 import Layout from '../layout/Layout';
-import Chart from 'react-google-charts';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Projects from '../Projects';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import WorkIcon from '@mui/icons-material/Work';
-import PeopleIcon from '@mui/icons-material/People';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-import UploadFiles from '../layout/UploadFiles';
 import { Divider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
+import UploadFiles2 from '../layout/UploadFiles2';
+import { useParams } from 'react-router';
 
 const TicketDetails = () => {
+  const params = useParams();
+
   return (
     <Layout>
       {/*Project and Ticket Name*/}
@@ -114,30 +108,8 @@ const TicketDetails = () => {
             height: '100%',
           }}
         >
-          <Grid item xs={12} sx={{ p: 3 }}>
-            <Typography variant='h5' gutterBottom>
-              Ticket Attachments
-            </Typography>
-            <UploadFiles />
-            {/* <Typography component='span' variant='h2'>
-              <input
-                accept='image/*'
-                style={{ display: 'none' }}
-                id='raised-button-file'
-                multiple
-                type='file'
-              />
-              <label htmlFor='raised-button-file'>
-                <Button
-                  variant='raised'
-              
-                  component='span'
-                >
-                  Choose file
-                </Button>
-              </label>
-            </Typography> */}
-          </Grid>
+          <UploadFiles2 params={params} />
+          {/* <UploadFiles /> */}
         </Paper>
       </Grid>
 
@@ -230,7 +202,9 @@ const TicketDetails = () => {
             }}
           >
             <HistoryIcon />
-            <Typography sx={{m:2}}>New Ticket Created by John Doe on Dec 20, 2021</Typography>
+            <Typography sx={{ m: 2 }}>
+              New Ticket Created by John Doe on Dec 20, 2021
+            </Typography>
           </Typography>
           <Typography
             component='span'
@@ -241,7 +215,9 @@ const TicketDetails = () => {
             }}
           >
             <HistoryIcon />
-            <Typography sx={{m:2}}>New Ticket Description by John Doe on Dec 21, 2021</Typography>
+            <Typography sx={{ m: 2 }}>
+              New Ticket Description by John Doe on Dec 21, 2021
+            </Typography>
           </Typography>
           <Typography
             component='span'
@@ -252,7 +228,9 @@ const TicketDetails = () => {
             }}
           >
             <HistoryIcon />
-            <Typography sx={{m:2}}>New Ticket Created by John Doe on Dec 22, 2021</Typography>
+            <Typography sx={{ m: 2 }}>
+              New Ticket Created by John Doe on Dec 22, 2021
+            </Typography>
           </Typography>
           <Typography
             component='span'
@@ -263,7 +241,9 @@ const TicketDetails = () => {
             }}
           >
             <HistoryIcon />
-            <Typography sx={{m:2}}>New Ticket Created by John Doe on Dec 20, 2021</Typography>
+            <Typography sx={{ m: 2 }}>
+              New Ticket Created by John Doe on Dec 20, 2021
+            </Typography>
           </Typography>
         </Paper>
       </Grid>

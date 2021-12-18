@@ -5,7 +5,6 @@ function useProjectFormHooks(inputType) {
 
   function onChange(e) {
     let value = e.target.value;
-    console.log(value);
     setValue(value);
   }
 

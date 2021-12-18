@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import { Button } from '@mui/material';
-import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,9 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../layout/Title';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import { useNavigate } from 'react-router';
-function preventDefault(event) {
-  event.preventDefault();
-}
+
 
 const Tickets = ({ tickets }) => {
   const navigate = useNavigate();
@@ -60,7 +57,6 @@ const Tickets = ({ tickets }) => {
                   <ZoomInIcon
                     color='primary'
                     href='#'
-                    onClick={preventDefault}
                     sx={{ mt: 3 }}
                     onClick={()=>{navigate(`/ticket-details/${ticket._id}`)}}
                   />

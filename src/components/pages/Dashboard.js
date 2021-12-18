@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Layout from '../layout/Layout';
 import Chart from 'react-google-charts';
 import Typography from '@mui/material/Typography';
@@ -13,7 +13,6 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import { getAllUsers } from '../../store/actions/personnelActions';
 function DashboardContent() {
   const navigate = useNavigate();
@@ -296,7 +295,6 @@ function DashboardContent() {
       <Grid item xs={12} md={12} lg={3}>
         <Paper
           sx={{
-            p: 2,
             height: '100%',
             p: 3,
           }}

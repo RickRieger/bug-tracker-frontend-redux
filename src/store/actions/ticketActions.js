@@ -1,16 +1,26 @@
 import Axios from '../../utils/Axios';
-import { SET_ALL_TICKETS, SET_ALERT, SET_SINGLE_TICKET} from './types';
+import {
+  SET_ALL_TICKETS,
+  SET_ALERT,
+  SET_ALL_ATTACHMENTS_BY_TICKET,
+} from './types';
 
 export const submitNewTicket =
   ({ projectId, title, description, priorityLevel, ticketType }, onSuccess) =>
   async (dispatch) => {
-    console.log(projectId, title, description, priorityLevel, ticketType)
-    if (title === '' || projectId === ''|| description === '' || ticketType === ''|| priorityLevel === '') {
+    if (
+      title === '' ||
+      projectId === '' ||
+      description === '' ||
+      ticketType === '' ||
+      priorityLevel === ''
+    ) {
       return dispatch({
         type: SET_ALERT,
         payload: {
           isOpen: true,
-          alertMessage: 'Please fill out all the available fields in this form!',
+          alertMessage:
+            'Please fill out all the available fields in this form!',
           typeOfMessage: 'error',
         },
       });
@@ -27,9 +37,9 @@ export const submitNewTicket =
       title,
       description,
       priorityLevel,
-      ticketType
+      ticketType,
     });
-  console.log(body)
+
     try {
       const res = await Axios.post('/ticket/create-ticket', body, config);
       dispatch({
@@ -41,10 +51,8 @@ export const submitNewTicket =
         },
       });
 
-      onSuccess(projectId)
-
+      onSuccess(projectId);
     } catch (err) {
-     
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -63,20 +71,59 @@ export const getAllTicketsByProjectId = (id) => async (dispatch) => {
     },
   };
   try {
-    const res = await Axios.get(`/ticket/get-all-tickets-by-project-id/${id}`, config);
+    const res = await Axios.get(
+      `/ticket/get-all-tickets-by-project-id/${id}`,
+      config
+    );
     dispatch({ type: SET_ALL_TICKETS, payload: res.data.tickets });
-
   } catch (err) {
-    console.log(err)
-    // dispatch({
-    //   type: SET_ALERT,
-    //   payload: {
-    //     isOpen: true,
-    //     alertMessage: err.response.data.message,
-    //     typeOfMessage: 'error',
-    //   },
-    // });
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
   }
 };
 
+export const getAllAttachmentsByTicket = (ticketId) => async (dispatch) => {
+  try {
+    let res = await Axios.get(
+      `/ticket/get-all-attachments-by-ticket/${ticketId}`
+    );
 
+    dispatch({
+      type: SET_ALL_ATTACHMENTS_BY_TICKET,
+      payload: res.data.payload,
+    });
+  } catch (error) {}
+};
+
+export const UploadFilesAndAttachToTicket =
+  (file, description, ticketId) => async (dispatch) => {
+    let formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('description', description);
+
+    try {
+      let res = await Axios.post(
+        `/ticket/upload-file-to-ticket/${ticketId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: (progressEvent) => {
+            console.log(
+              parseInt(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              )
+            );
+          },
+        }
+      );
+    } catch (error) {}
+  };

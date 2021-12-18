@@ -44,7 +44,6 @@ export const register =
         },
       });
     } catch (err) {
-      console.log(err.response);
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -115,7 +114,6 @@ export const login =
         },
       });
     } catch (err) {
-      console.log('hello---', err)
       if (err.response.data.payload.wrongEmailFormat) {
         dispatch({
           type: SET_ALERT,

@@ -11,7 +11,6 @@ export const getAllUsers = () => async (dispatch) => {
     const res = await Axios.get('/user/get-all-users', config);
     dispatch({ type: SET_ALL_PERSONNEL, payload: res.data });
   } catch (err) {
-    console.log(err)
     dispatch({
       type: SET_ALERT,
       payload: {
