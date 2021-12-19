@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../../../store/actions/authActions';
@@ -34,7 +34,6 @@ const SignIn = () => {
 
   const handleRememberMe = (e) => {
     let isRememberMeChecked = e.target.checked;
-    console.log(isRememberMeChecked);
   };
 
   const handleSubmit = (event) => {

@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../layout/Title';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import { useNavigate } from 'react-router';
-
 function preventDefault(event) {
   event.preventDefault();
 }

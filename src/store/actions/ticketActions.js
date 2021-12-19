@@ -3,6 +3,7 @@ import {
   SET_ALL_TICKETS,
   SET_ALERT,
   SET_ALL_ATTACHMENTS_BY_TICKET,
+  SET_UPLOAD_PROGRESS,
 } from './types';
 
 export const submitNewTicket =
@@ -117,10 +118,14 @@ export const UploadFilesAndAttachToTicket =
             'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: (progressEvent) => {
-            console.log(
-              parseInt(
+            dispatch({
+              type: SET_UPLOAD_PROGRESS,
+              payload: parseInt(
                 Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              )
+              ),
+            });         
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
             );
           },
         }

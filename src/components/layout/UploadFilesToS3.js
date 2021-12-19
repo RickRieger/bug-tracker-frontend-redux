@@ -17,6 +17,8 @@ import {
   UploadFilesAndAttachToTicket,
   getAllAttachmentsByTicket,
 } from '../../store/actions/ticketActions';
+import Axios from '../../utils/Axios';
+import { SET_ALERT, SET_UPLOAD_PROGRESS } from '../../store/actions/types';
 
 // Circle Progress below
 const CircularProgressWithLabel = (props) => {
@@ -53,18 +55,22 @@ CircularProgressWithLabel.propTypes = {
 };
 
 const CircularStatic = () => {
+  const dispatch = useDispatch();
+  const { uploadProgress } = useSelector((state) => state.tickets);
+
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 0 : prevProgress + 10
-      );
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+    setProgress(uploadProgress);
+  }, [uploadProgress]);
+
+  if (progress === 100) {
+    setTimeout(() => {
+      setProgress(0);
+      dispatch({ type: SET_UPLOAD_PROGRESS, payload: 0 });
+    }, 3000);
+  }
+
   if (progress === 0) {
     return (
       <CircularProgress
@@ -80,7 +86,7 @@ const CircularStatic = () => {
 
 //--------Whole component below---------
 
-const UploadFiles2 = ({ params }) => {
+const UploadFilesToS3 = ({ params }) => {
   const { ticketId } = params;
   const dispatch = useDispatch();
   const { attachments } = useSelector((state) => state.tickets);
@@ -89,10 +95,60 @@ const UploadFiles2 = ({ params }) => {
     dispatch(getAllAttachmentsByTicket(ticketId));
   }, [dispatch, ticketId]);
 
-  const [selectedFile, setSelectedFile] = useState(undefined);
-  const [description, setDescription] = useState(undefined);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const handleUpload = async () => {
+    
+    if(description === null){
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Please provide a description',
+          typeOfMessage: 'error',
+        },
+      });
+      return
+    }
+    if(selectedFile === null){
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Please select a file to upload',
+          typeOfMessage: 'error',
+        },
+      });
+      return
+    }
+
+    for (let attachment of attachments) {
+      if (attachment.fileName == selectedFile[0].name) {
+        dispatch({
+          type: SET_ALERT,
+          payload: {
+            isOpen: true,
+            alertMessage: 'File name already exist',
+            typeOfMessage: 'error',
+          },
+        });
+        return;
+      }
+    }
+
+    if(description === null){
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Description cannot be empty',
+          typeOfMessage: 'error',
+        },
+      });
+      return
+    }
+
     await dispatch(
       UploadFilesAndAttachToTicket(
         selectedFile[0],
@@ -106,6 +162,29 @@ const UploadFiles2 = ({ params }) => {
   if (!attachments) {
     return <Spinner />;
   }
+
+  const downloadFiles = async (key) => {
+    try {
+      const FileDownload = require('js-file-download');
+
+      let res = await Axios({
+        url: `/ticket/get-single-attachment-by-key/${key}`,
+        method: 'GET',
+        responseType: 'blob', // Important
+      });
+
+      FileDownload(res.data, key);
+    } catch (error) {
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Sorry, this file no longer exists, please upload again',
+          typeOfMessage: 'error',
+        },
+      });
+    }
+  };
 
   return (
     <Grid item xs={12} display='flex' flexDirection='column'>
@@ -139,7 +218,7 @@ const UploadFiles2 = ({ params }) => {
           type='file'
           onChange={(e) => setSelectedFile(e.target.files)}
         />
-        <Button fullWidth variant='contained' component='span' sx={{mb:1}}>
+        <Button fullWidth variant='contained' component='span' sx={{ mb: 1 }}>
           Choose Files
         </Button>
         <Typography style={{ textAlign: 'center' }}>
@@ -185,7 +264,12 @@ const UploadFiles2 = ({ params }) => {
                   textAlign={'end'}
                   sx={{ p: 1 }}
                 >
-                  <CloudDownloadIcon />
+                  <CloudDownloadIcon
+                    color='primary'
+                    onClick={() => {
+                      downloadFiles(attachment.fileKeyForS3);
+                    }}
+                  />
                 </Typography>
               </Typography>
               <Divider />
@@ -197,4 +281,4 @@ const UploadFiles2 = ({ params }) => {
   );
 };
 
-export default UploadFiles2;
+export default UploadFilesToS3;

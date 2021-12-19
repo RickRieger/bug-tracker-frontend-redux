@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { Divider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
-import UploadFiles2 from '../layout/UploadFiles2';
+import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
 
 const TicketDetails = () => {
@@ -108,7 +108,7 @@ const TicketDetails = () => {
             height: '100%',
           }}
         >
-          <UploadFiles2 params={params} />
+          <UploadFilesToS3 params={params} />
           {/* <UploadFiles /> */}
         </Paper>
       </Grid>
