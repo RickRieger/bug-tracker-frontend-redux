@@ -114,29 +114,16 @@ export const login =
         },
       });
     } catch (err) {
-      if (err.response.data.payload.wrongEmailFormat) {
-        dispatch({
-          type: SET_ALERT,
-          payload: {
-            isOpen: true,
-            alertMessage: err.response.data.payload.wrongEmailFormat,
-            typeOfMessage: 'error',
-          },
-        });
-      } else {
-
-        dispatch({
-          type: SET_ALERT,
-          payload: {
-            isOpen: true,
-            alertMessage: err.response.data.payload,
-            typeOfMessage: 'error',
-          },
-        });
-      }
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: err.response.data.payload,
+          typeOfMessage: 'error',
+        },
+      });
     }
   };
-
 
 // Logout / Clear Profile
 
