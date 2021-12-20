@@ -1,5 +1,6 @@
 import Axios from '../../utils/Axios';
 import {
+  SET_SINGLE_TICKET,
   SET_ALL_TICKETS,
   SET_ALERT,
   SET_ALL_ATTACHMENTS_BY_TICKET,
@@ -65,6 +66,83 @@ export const submitNewTicket =
     }
   };
 
+export const UploadFileAndAttachToTicket =
+  (file, description, ticketId) => async (dispatch) => {
+    let formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('description', description);
+
+    try {
+      let res = await Axios.post(
+        `/ticket/upload-file-to-ticket/${ticketId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: (progressEvent) => {
+            dispatch({
+              type: SET_UPLOAD_PROGRESS,
+              payload: parseInt(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              ),
+            });
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            );
+          },
+        }
+      );
+    } catch (error) {}
+  };
+
+export const getAllTickets = () => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await Axios.get('/ticket/get-all-tickets', config);
+
+    dispatch({ type: SET_ALL_TICKETS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
+
+export const getTicketByTicketId = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await Axios.get(
+      `/ticket/get-ticket-by-id/${id}`,
+      config
+    );
+    console.log(res.data)
+    dispatch({ type: SET_SINGLE_TICKET, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
 export const getAllTicketsByProjectId = (id) => async (dispatch) => {
   const config = {
     headers: {
@@ -102,33 +180,3 @@ export const getAllAttachmentsByTicket = (ticketId) => async (dispatch) => {
   } catch (error) {}
 };
 
-export const UploadFilesAndAttachToTicket =
-  (file, description, ticketId) => async (dispatch) => {
-    let formData = new FormData();
-
-    formData.append('file', file);
-    formData.append('description', description);
-
-    try {
-      let res = await Axios.post(
-        `/ticket/upload-file-to-ticket/${ticketId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          onUploadProgress: (progressEvent) => {
-            dispatch({
-              type: SET_UPLOAD_PROGRESS,
-              payload: parseInt(
-                Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              ),
-            });         
-            parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            );
-          },
-        }
-      );
-    } catch (error) {}
-  };

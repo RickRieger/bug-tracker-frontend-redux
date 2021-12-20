@@ -175,9 +175,9 @@ const CreateTicket = () => {
                       label='Type'
                       onChange={handleOnChange}
                     >
-                      <MenuItem value='bug'>Bug</MenuItem>
-                      <MenuItem value='task'>Task</MenuItem>
-                      <MenuItem value='new-feature'>New Feature</MenuItem>
+                      <MenuItem value='Bug'>Bug</MenuItem>
+                      <MenuItem value='Task'>Task</MenuItem>
+                      <MenuItem value='New Feature'>New Feature</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>

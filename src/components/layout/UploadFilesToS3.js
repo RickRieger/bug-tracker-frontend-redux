@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  UploadFilesAndAttachToTicket,
+  UploadFileAndAttachToTicket,
   getAllAttachmentsByTicket,
 } from '../../store/actions/ticketActions';
 import Axios from '../../utils/Axios';
@@ -99,8 +99,7 @@ const UploadFilesToS3 = ({ params }) => {
   const [description, setDescription] = useState(null);
 
   const handleUpload = async () => {
-    
-    if(description === null){
+    if (description === null) {
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -109,9 +108,9 @@ const UploadFilesToS3 = ({ params }) => {
           typeOfMessage: 'error',
         },
       });
-      return
+      return;
     }
-    if(selectedFile === null){
+    if (selectedFile === null) {
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -120,7 +119,7 @@ const UploadFilesToS3 = ({ params }) => {
           typeOfMessage: 'error',
         },
       });
-      return
+      return;
     }
 
     for (let attachment of attachments) {
@@ -137,7 +136,7 @@ const UploadFilesToS3 = ({ params }) => {
       }
     }
 
-    if(description === null){
+    if (description === null) {
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -146,15 +145,11 @@ const UploadFilesToS3 = ({ params }) => {
           typeOfMessage: 'error',
         },
       });
-      return
+      return;
     }
 
     await dispatch(
-      UploadFilesAndAttachToTicket(
-        selectedFile[0],
-        description,
-        params.ticketId
-      )
+      UploadFileAndAttachToTicket(selectedFile[0], description, params.ticketId)
     );
     dispatch(getAllAttachmentsByTicket(params.ticketId));
   };
@@ -179,7 +174,8 @@ const UploadFilesToS3 = ({ params }) => {
         type: SET_ALERT,
         payload: {
           isOpen: true,
-          alertMessage: 'Sorry, this file no longer exists, please upload again',
+          alertMessage:
+            'Sorry, this file no longer exists, please upload again',
           typeOfMessage: 'error',
         },
       });

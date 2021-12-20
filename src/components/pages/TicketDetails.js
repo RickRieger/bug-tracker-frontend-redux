@@ -9,9 +9,17 @@ import { Divider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getTicketByTicketId } from '../../store/actions/ticketActions';
 
 const TicketDetails = () => {
   const params = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTicketByTicketId(params.ticketId))
+  }, [])
 
   return (
     <Layout>
@@ -109,7 +117,7 @@ const TicketDetails = () => {
           }}
         >
           <UploadFilesToS3 params={params} />
-          {/* <UploadFiles /> */}
+
         </Paper>
       </Grid>
 

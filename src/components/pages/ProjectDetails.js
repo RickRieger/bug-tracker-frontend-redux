@@ -18,6 +18,8 @@ const ProjectDetails = () => {
   const { project } = useSelector((state) => state.projects);
   const { allPersonnelByProject } = useSelector((state) => state.personnel);
   const { developers } = allPersonnelByProject;
+
+  
   useEffect(() => {
     dispatch(getProjectById(params.projectId));
     dispatch(getAllTicketsByProjectId(params.projectId));
