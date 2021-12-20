@@ -68,13 +68,14 @@ export const submitNewTicket =
 
 export const UploadFileAndAttachToTicket =
   (file, description, ticketId) => async (dispatch) => {
+
     let formData = new FormData();
 
     formData.append('file', file);
     formData.append('description', description);
 
     try {
-      let res = await Axios.post(
+       await Axios.post(
         `/ticket/upload-file-to-ticket/${ticketId}`,
         formData,
         {

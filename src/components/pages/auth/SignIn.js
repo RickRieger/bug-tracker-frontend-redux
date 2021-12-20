@@ -32,9 +32,7 @@ const SignIn = () => {
     }
   }, [email, password, user, navigate]);
 
-  const handleRememberMe = (e) => {
-    let isRememberMeChecked = e.target.checked;
-  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -129,8 +127,6 @@ const SignIn = () => {
                   <Checkbox
                     disabled
                     value='remember'
-                    color='primary'
-                    onChange={handleRememberMe}
                   />
                 }
                 label='Remember me'

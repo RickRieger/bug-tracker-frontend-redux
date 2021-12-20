@@ -68,7 +68,7 @@ const CircularStatic = () => {
     setTimeout(() => {
       setProgress(0);
       dispatch({ type: SET_UPLOAD_PROGRESS, payload: 0 });
-    }, 3000);
+    }, 2000);
   }
 
   if (progress === 0) {
@@ -90,13 +90,12 @@ const UploadFilesToS3 = ({ params }) => {
   const { ticketId } = params;
   const dispatch = useDispatch();
   const { attachments } = useSelector((state) => state.tickets);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [description, setDescription] = useState(null);
 
   useEffect(() => {
     dispatch(getAllAttachmentsByTicket(ticketId));
   }, [dispatch, ticketId]);
-
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [description, setDescription] = useState(null);
 
   const handleUpload = async () => {
     if (description === null) {
@@ -123,7 +122,7 @@ const UploadFilesToS3 = ({ params }) => {
     }
 
     for (let attachment of attachments) {
-      if (attachment.fileName == selectedFile[0].name) {
+      if (attachment.fileName === selectedFile[0].name) {
         dispatch({
           type: SET_ALERT,
           payload: {
@@ -154,10 +153,6 @@ const UploadFilesToS3 = ({ params }) => {
     dispatch(getAllAttachmentsByTicket(params.ticketId));
   };
 
-  if (!attachments) {
-    return <Spinner />;
-  }
-
   const downloadFiles = async (key) => {
     try {
       const FileDownload = require('js-file-download');
@@ -181,6 +176,11 @@ const UploadFilesToS3 = ({ params }) => {
       });
     }
   };
+  
+  
+  if (!attachments) {
+    return <Spinner />;
+  }
 
   return (
     <Grid item xs={12} display='flex' flexDirection='column'>

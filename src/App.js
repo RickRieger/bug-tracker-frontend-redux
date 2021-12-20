@@ -5,7 +5,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import SnackBar from './components/layout/SnackBar';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { LOGIN, LOGOUT } from './store/actions/types';
+import { LOGIN } from './store/actions/types';
 import jwtDecode from 'jwt-decode';
 function App() {
   const dispatch = useDispatch()
@@ -20,13 +20,12 @@ function App() {
         
       } else {
         //login
-        console.log(decodedJWTToken)
         const {firstName, lastName, role} = decodedJWTToken
         const user = ({firstName, lastName, role})
         dispatch({type:LOGIN, payload:user})
       }
     }
-  }, []);
+  }, [dispatch]);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <SnackBar />

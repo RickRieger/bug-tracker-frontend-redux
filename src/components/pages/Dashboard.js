@@ -104,7 +104,7 @@ function DashboardContent() {
       NewFeature += 1;
     }
   });
-  console.log(Bug)
+
 
   let Urgent = 0;
   let High = 0;
@@ -126,7 +126,6 @@ function DashboardContent() {
     }
   });
 
-  tickets.forEach((ticket) => {console.log(ticket.ticketType)})
 
   return (
     <Layout>
@@ -314,6 +313,7 @@ function DashboardContent() {
               ['New', New],
               ['Unassigned', Unassigned],
               ['Development', Development],
+              ['Testing', Testing],
               ['Archived', Archived],
               ['Resolved', Resolved],
             ]}

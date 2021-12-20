@@ -11,7 +11,6 @@ import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { getTicketByTicketId } from '../../store/actions/ticketActions';
 
 const TicketDetails = () => {
@@ -19,7 +18,7 @@ const TicketDetails = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTicketByTicketId(params.ticketId))
-  }, [])
+  }, [dispatch, params.ticketId])
 
   return (
     <Layout>

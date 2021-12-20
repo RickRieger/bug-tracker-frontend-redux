@@ -184,7 +184,7 @@ const ProjectDetails = () => {
 
             {developers.map((dev) => {
               return (
-                <Grid item display='flex' flexDirection='row'>
+                <Grid item display='flex' flexDirection='row' key={dev._id}>
                   <Typography
                     key={dev._id}
                     component='span'

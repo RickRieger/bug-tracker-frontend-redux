@@ -86,7 +86,7 @@ export const addPersonnelToProject =
     const { personnel, projectId } = personnelToProjectObj;
     const payload = {developers:personnel}
     try {
-      const res = await Axios.put(
+       await Axios.put(
         `/project/add-personnel-to-project/${projectId}`,
         payload
       );

@@ -51,7 +51,7 @@ const Tickets = ({ tickets }) => {
                   {ticket.developer ? ticket.developer : 'Unassigned'}
                 </TableCell>
                 <TableCell>{ticket.priorityLevel}</TableCell>
-                <TableCell>{ticket.createdAt}</TableCell>
+                <TableCell>{moment(ticket.createdAt).format('MMMM Do, YYYY')}</TableCell>
                 <TableCell>{ticket.ticketStatus}</TableCell>
                 <TableCell align='right'>
                   <ZoomInIcon
