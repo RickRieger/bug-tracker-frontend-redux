@@ -67,7 +67,7 @@ const SignIn = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(/bg-image.jpg)',
+            backgroundImage: `url('https://rieger-bucket.s3.amazonaws.com/images/bg-image-ticket-tracker.jpg')`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light'

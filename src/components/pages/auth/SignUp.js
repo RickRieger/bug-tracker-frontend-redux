@@ -113,7 +113,7 @@ const SignUp = () => {
   return (
     <div
       style={{
-        backgroundImage: `url('https://rieger-bucket.s3.amazonaws.com/images/bg-image.jpg')`,
+        backgroundImage: `url('https://rieger-bucket.s3.amazonaws.com/images/bg-image-ticket-tracker.jpg')`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
