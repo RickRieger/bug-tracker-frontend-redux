@@ -105,7 +105,6 @@ function DashboardContent() {
     }
   });
 
-
   let Urgent = 0;
   let High = 0;
   let Medium = 0;
@@ -125,7 +124,6 @@ function DashboardContent() {
       Low += 1;
     }
   });
-
 
   return (
     <Layout>
@@ -149,9 +147,9 @@ function DashboardContent() {
           <Button
             variant='contained'
             sx={{
-              mx: 2,
               my: 2,
             }}
+     
             onClick={() => navigate('/create-project')}
           >
             + Create New Project
@@ -443,7 +441,14 @@ function DashboardContent() {
       </Grid>
       {/* Recent Projects */}
       <Grid item xs={12} md={12} lg={9}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'scroll',
+          }}
+        >
           <Projects />
         </Paper>
       </Grid>

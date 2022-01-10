@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProjects } from '../../store/actions/projectActions';
 import Projects from './Projects';
 
-const ProjectsWrapper = () => {
+const ProjectsWrapper = ({isAllProjects}) => {
+ 
   const { projects } = useSelector(
     (state) => state.projects
   );
@@ -11,7 +12,7 @@ const ProjectsWrapper = () => {
   useEffect(() => {
     dispatch(getAllProjects());
   }, [dispatch]);
-  return <Projects projects={projects} />;
+  return <Projects projects={projects} isAllProjects={isAllProjects} />;
 };
 
 export default ProjectsWrapper;

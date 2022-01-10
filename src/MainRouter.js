@@ -11,6 +11,7 @@ import ProjectDetails from './components/pages/ProjectDetails';
 import CreateTicket from './components/pages/CreateTicket';
 import AddTeam from './components/pages/AddTeam';
 import TicketDetails from './components/pages/TicketDetails';
+import AllProjects from './components/pages/AllProjects';
 function MainRouter() {
   return (
     <BrowserRouter>
@@ -88,6 +89,14 @@ function MainRouter() {
           element={
             <RequireAuth redirectTo='/sign-in'>
               <TicketDetails />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/all-projects'
+          element={
+            <RequireAuth redirectTo='/sign-in'>
+              <AllProjects />
             </RequireAuth>
           }
         />
