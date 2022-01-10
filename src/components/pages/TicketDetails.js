@@ -12,23 +12,56 @@ import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getTicketByTicketId } from '../../store/actions/ticketActions';
-
+import { useSelector } from 'react-redux';
+import { Box } from '@mui/system';
+import Spinner from '../ui/Spinner';
+import moment from 'moment';
 const TicketDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getTicketByTicketId(params.ticketId))
-  }, [dispatch, params.ticketId])
+    dispatch(getTicketByTicketId(params.ticketId));
+  }, [dispatch, params.ticketId]);
+
+  const { ticket } = useSelector((state) => state.tickets);
+  console.log(ticket);
+  let color = 'info.light';
+
+  if (ticket) {
+    const priorityLevel = ticket.priorityLevel;
+    switch (priorityLevel) {
+      case 'Urgent':
+        color = 'error.dark';
+        break;
+      case 'High':
+        color = 'error.light';
+        break;
+      case 'Medium':
+        color = 'warning.light';
+        break;
+      case 'Low':
+        color = 'info.light';
+        break;
+      default:
+        color = 'info.light';
+    }
+  }
+
+  if (!ticket) {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       {/*Project and Ticket Name*/}
       <Grid item xs={12} textAlign={'center'}>
-        <Typography component='span' variant='h4'>
-          Ticket: A Bug Tracking App{' '}
-        </Typography>
         <Typography component='span' variant='h5'>
-          (User Authentication)
+          Ticket: {ticket.title}
         </Typography>
       </Grid>
 
@@ -37,7 +70,7 @@ const TicketDetails = () => {
       <Grid
         item
         xs={12}
-        md={8}
+        md={12}
         lg={6}
         sx={{
           display: 'flex',
@@ -49,7 +82,7 @@ const TicketDetails = () => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            height: '100%',
+            width: '100%',
           }}
         >
           <Grid
@@ -70,9 +103,7 @@ const TicketDetails = () => {
               Description:{' '}
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Please make sure that the forms are laid out according to the wire
-              frame provided. The user should provide a strong password of no
-              less than eight characters in length.
+              {ticket.description}
             </Typography>
           </Grid>
           <Grid
@@ -82,31 +113,41 @@ const TicketDetails = () => {
               p: 3,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'flex-end',
-              height: '100%',
             }}
           >
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Assigned Developer: John Doe
+              Assigned Developer: {ticket.developer}
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Created: December 15, 2021
+              Created: {moment(ticket.createdAt).format('MMMM Do, YYYY')}
             </Typography>
 
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Type: New Feature
+              Ticket Type: {ticket.ticketType}
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Priority: Low
+              Priority:{' '}
+              <Box
+                component='span'
+                sx={{
+                  display: 'inline',
+                  padding: '5px',
+                  color: 'white',
+                  borderRadius: '10px',
+                  bgcolor: color,
+                }}
+              >
+                {ticket.priorityLevel}
+              </Box>
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Status: Development
+              Ticket Status: {ticket.ticketStatus}
             </Typography>
           </Grid>
         </Paper>
       </Grid>
 
-      <Grid item xs={12} md={4} lg={6}>
+      <Grid item xs={12} md={12} lg={6}>
         <Paper
           sx={{
             p: 2,
@@ -116,7 +157,6 @@ const TicketDetails = () => {
           }}
         >
           <UploadFilesToS3 params={params} />
-
         </Paper>
       </Grid>
 

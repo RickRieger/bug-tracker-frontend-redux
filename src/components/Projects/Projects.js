@@ -20,8 +20,8 @@ const Projects = ({ projects, isAllProjects }) => {
     <React.Fragment>
       <Title>Projects</Title>
       <Table size='small'>
-        <TableHead>
-          <TableRow>
+        <TableHead  >
+          <TableRow >
             <TableCell>Name</TableCell>
             <TableCell>Start Date</TableCell>
             <TableCell>End Date</TableCell>
