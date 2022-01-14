@@ -17,8 +17,8 @@ const TicketDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getTicketByTicketId(params.ticketId))
-  }, [dispatch, params.ticketId])
+    dispatch(getTicketByTicketId(params.ticketId));
+  }, [dispatch, params.ticketId]);
 
   return (
     <Layout>
@@ -56,9 +56,10 @@ const TicketDetails = () => {
             item
             xs={8}
             sx={{
-              p: 3,
+              p: 1,
               display: 'flex',
               flexDirection: 'column',
+              justifyContent:'center',
               height: '100%',
             }}
           >
@@ -82,7 +83,7 @@ const TicketDetails = () => {
               p: 3,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'flex-end',
+              justifyContent: 'center',
               height: '100%',
             }}
           >
@@ -116,7 +117,6 @@ const TicketDetails = () => {
           }}
         >
           <UploadFilesToS3 params={params} />
-
         </Paper>
       </Grid>
 
@@ -175,14 +175,49 @@ const TicketDetails = () => {
               sx={{
                 mt: 2,
                 padding: '10px',
+                height: '100px',
                 borderRadius: '10px',
                 border: '1px solid grey',
+                overflowY: 'scroll',
+                scrollbarColor: 'red',
               }}
             >
-              Rick Rieger posted on Dec 3rd, 2021
-              <Typography>
-                Doing a great job, everything works as expected!
+              <Typography
+                sx={{
+                  backgroundColor: 'lightblue',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  mt:1
+                }}
+              >
+                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
+                <div> Doing a great job, everything works as expected!</div>
               </Typography>
+              <Divider sx={{ mt: 1 }} />
+              <Typography
+                sx={{
+                  backgroundColor: 'lightblue',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  mt:1
+                }}
+              >
+                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
+                <div> Doing a great job, everything works as expected!</div>
+              </Typography>
+              <Divider sx={{ mt: 1 }} />
+              <Typography
+                sx={{
+                  backgroundColor: 'lightblue',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  mt:1
+                }}
+              >
+                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
+                <div> Doing a great job, everything works as expected!</div>
+              </Typography>
+              <Divider sx={{ mt: 1 }} />
             </Typography>
           </Grid>
         </Paper>

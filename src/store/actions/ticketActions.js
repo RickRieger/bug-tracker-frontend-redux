@@ -65,36 +65,77 @@ export const submitNewTicket =
       });
     }
   };
+export const submitNewTicketComment =
+  (comment, ticket_id) => async (dispatch) => {
+    if (comment === '') {
+      return dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: 'Please provide a comment.',
+          typeOfMessage: 'error',
+        },
+      });
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify(comment);
+
+    try {
+      const res = await Axios.post(
+        `/create-comment-by-ticket/${ticket_id}`,
+        body,
+        config
+      );
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: res.data.message,
+          typeOfMessage: 'Comment posted',
+        },
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ALERT,
+        payload: {
+          isOpen: true,
+          alertMessage: err.response.data.message,
+          typeOfMessage: 'error',
+        },
+      });
+    }
+  };
 
 export const UploadFileAndAttachToTicket =
   (file, description, ticketId) => async (dispatch) => {
-
     let formData = new FormData();
 
     formData.append('file', file);
     formData.append('description', description);
 
     try {
-       await Axios.post(
-        `/ticket/upload-file-to-ticket/${ticketId}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          onUploadProgress: (progressEvent) => {
-            dispatch({
-              type: SET_UPLOAD_PROGRESS,
-              payload: parseInt(
-                Math.round((progressEvent.loaded * 100) / progressEvent.total)
-              ),
-            });
-            parseInt(
+      await Axios.post(`/ticket/upload-file-to-ticket/${ticketId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (progressEvent) => {
+          dispatch({
+            type: SET_UPLOAD_PROGRESS,
+            payload: parseInt(
               Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            );
-          },
-        }
-      );
+            ),
+          });
+          parseInt(
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          );
+        },
+      });
     } catch (error) {}
   };
 
@@ -127,11 +168,8 @@ export const getTicketByTicketId = (id) => async (dispatch) => {
     },
   };
   try {
-    const res = await Axios.get(
-      `/ticket/get-ticket-by-id/${id}`,
-      config
-    );
-    console.log(res.data)
+    const res = await Axios.get(`/ticket/get-ticket-by-id/${id}`, config);
+    console.log(res.data);
     dispatch({ type: SET_SINGLE_TICKET, payload: res.data });
   } catch (err) {
     dispatch({
@@ -180,4 +218,3 @@ export const getAllAttachmentsByTicket = (ticketId) => async (dispatch) => {
     });
   } catch (error) {}
 };
-
