@@ -5,8 +5,105 @@ import {
   SET_ALERT,
   SET_ALL_ATTACHMENTS_BY_TICKET,
   SET_UPLOAD_PROGRESS,
+  SET_ALL_COMMENTS_BY_TICKET,
 } from './types';
 
+export const getAllTickets = () => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await Axios.get('/ticket/get-all-tickets', config);
+
+    dispatch({ type: SET_ALL_TICKETS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
+export const getTicketByTicketId = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await Axios.get(`/ticket/get-ticket-by-id/${id}`, config);
+    dispatch({ type: SET_SINGLE_TICKET, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
+export const getAllTicketsByProjectId = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await Axios.get(
+      `/ticket/get-all-tickets-by-project-id/${id}`,
+      config
+    );
+    dispatch({ type: SET_ALL_TICKETS, payload: res.data.tickets });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
+export const getAllAttachmentsByTicket = (ticketId) => async (dispatch) => {
+  try {
+    let res = await Axios.get(
+      `/ticket/get-all-attachments-by-ticket/${ticketId}`
+    );
+
+    dispatch({
+      type: SET_ALL_ATTACHMENTS_BY_TICKET,
+      payload: res.data.payload,
+    });
+  } catch (error) {}
+};
+export const getAllCommentsByTicket = (ticketId) => async (dispatch) => {
+  try {
+    let res = await Axios.get(
+      `/comment/get-all-comments-by-ticket/${ticketId}`
+    );
+    dispatch({
+      type: SET_ALL_COMMENTS_BY_TICKET,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: SET_ALERT,
+      payload: {
+        isOpen: true,
+        alertMessage: err.response.data.message,
+        typeOfMessage: 'error',
+      },
+    });
+  }
+};
 export const submitNewTicket =
   ({ projectId, title, description, priorityLevel, ticketType }, onSuccess) =>
   async (dispatch) => {
@@ -111,7 +208,6 @@ export const submitNewTicketComment =
       });
     }
   };
-
 export const UploadFileAndAttachToTicket =
   (file, description, ticketId) => async (dispatch) => {
     let formData = new FormData();
@@ -138,83 +234,3 @@ export const UploadFileAndAttachToTicket =
       });
     } catch (error) {}
   };
-
-export const getAllTickets = () => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  try {
-    const res = await Axios.get('/ticket/get-all-tickets', config);
-
-    dispatch({ type: SET_ALL_TICKETS, payload: res.data });
-  } catch (err) {
-    dispatch({
-      type: SET_ALERT,
-      payload: {
-        isOpen: true,
-        alertMessage: err.response.data.message,
-        typeOfMessage: 'error',
-      },
-    });
-  }
-};
-
-export const getTicketByTicketId = (id) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  try {
-    const res = await Axios.get(`/ticket/get-ticket-by-id/${id}`, config);
-    console.log(res.data);
-    dispatch({ type: SET_SINGLE_TICKET, payload: res.data });
-  } catch (err) {
-    dispatch({
-      type: SET_ALERT,
-      payload: {
-        isOpen: true,
-        alertMessage: err.response.data.message,
-        typeOfMessage: 'error',
-      },
-    });
-  }
-};
-export const getAllTicketsByProjectId = (id) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  try {
-    const res = await Axios.get(
-      `/ticket/get-all-tickets-by-project-id/${id}`,
-      config
-    );
-    dispatch({ type: SET_ALL_TICKETS, payload: res.data.tickets });
-  } catch (err) {
-    dispatch({
-      type: SET_ALERT,
-      payload: {
-        isOpen: true,
-        alertMessage: err.response.data.message,
-        typeOfMessage: 'error',
-      },
-    });
-  }
-};
-
-export const getAllAttachmentsByTicket = (ticketId) => async (dispatch) => {
-  try {
-    let res = await Axios.get(
-      `/ticket/get-all-attachments-by-ticket/${ticketId}`
-    );
-
-    dispatch({
-      type: SET_ALL_ATTACHMENTS_BY_TICKET,
-      payload: res.data.payload,
-    });
-  } catch (error) {}
-};

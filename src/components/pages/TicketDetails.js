@@ -11,13 +11,14 @@ import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getTicketByTicketId } from '../../store/actions/ticketActions';
+import { getTicketByTicketId, getAllCommentsByTicket } from '../../store/actions/ticketActions';
 
 const TicketDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTicketByTicketId(params.ticketId));
+    dispatch(getAllCommentsByTicket(params.ticketId));
   }, [dispatch, params.ticketId]);
 
   return (
