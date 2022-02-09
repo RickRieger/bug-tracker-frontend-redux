@@ -5,21 +5,47 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { Divider } from '@mui/material';
+import { containerClasses, Divider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getTicketByTicketId, getAllCommentsByTicket } from '../../store/actions/ticketActions';
+import { useSelector } from 'react-redux';
+import { getTicketByTicketId, getAllCommentsByTicket, submitNewTicketComment } from '../../store/actions/ticketActions';
+import Spinner from '../ui/Spinner';
+import moment from 'moment';
 
 const TicketDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getTicketByTicketId(params.ticketId));
     dispatch(getAllCommentsByTicket(params.ticketId));
   }, [dispatch, params.ticketId]);
+
+  const { comments } = useSelector((state) => state.tickets);
+
+  const [comment, setComment] = useState('')
+
+  const handleOnClick = () =>{
+    dispatch(submitNewTicketComment(comment, params.ticketId, onSuccess))
+  }
+  const handleOnChange = (e)=>{
+    setComment(e.target.value)
+  }
+  const onSuccess = ()=>{
+    dispatch(getAllCommentsByTicket(params.ticketId))
+  }
+  
+  if (!comments) {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -141,16 +167,16 @@ const TicketDetails = () => {
                 multiline
                 required
                 maxRows={6}
-                // value={state.description}
-                // onChange={handleOnChange}
+                value={comment}
+                onChange={handleOnChange}
                 fullWidth
               />
             </Grid>
             <Button
-              // type='submit'
               fullWidth
               variant='contained'
               sx={{ mt: 2 }}
+              onClick={handleOnClick}
             >
               Comment
             </Button>
@@ -168,7 +194,7 @@ const TicketDetails = () => {
                 bgcolor: '#dedede',
               }}
             >
-              1 Comment(s)
+              {comments.length} Comment(s)
             </Typography>
             <Typography
               component='div'
@@ -183,7 +209,10 @@ const TicketDetails = () => {
                 scrollbarColor: 'red',
               }}
             >
+            {comments.map((comment)=>( 
+              <>
               <Typography
+                key={comment._id}
                 sx={{
                   backgroundColor: 'lightblue',
                   padding: '10px',
@@ -191,34 +220,12 @@ const TicketDetails = () => {
                   mt:1
                 }}
               >
-                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
-                <div> Doing a great job, everything works as expected!</div>
+                <div>{comment.commenter.firstName} {comment.commenter.lastName} posted on {moment(comment.createdAt).format('MMMM Do, YYYY')}</div>
+                <div>{comment.comment}</div>
               </Typography>
               <Divider sx={{ mt: 1 }} />
-              <Typography
-                sx={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  mt:1
-                }}
-              >
-                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
-                <div> Doing a great job, everything works as expected!</div>
-              </Typography>
-              <Divider sx={{ mt: 1 }} />
-              <Typography
-                sx={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  mt:1
-                }}
-              >
-                <div>Rick Rieger posted on Dec 3rd, 2021:</div>
-                <div> Doing a great job, everything works as expected!</div>
-              </Typography>
-              <Divider sx={{ mt: 1 }} />
+              </>
+            ))}
             </Typography>
           </Grid>
         </Paper>

@@ -89,16 +89,17 @@ export const getAllCommentsByTicket = (ticketId) => async (dispatch) => {
     let res = await Axios.get(
       `/comment/get-all-comments-by-ticket/${ticketId}`
     );
+    console.log(res.data.comments)
     dispatch({
       type: SET_ALL_COMMENTS_BY_TICKET,
-      payload: res.data,
+      payload: res.data.comments,
     });
   } catch (err) {
     dispatch({
       type: SET_ALERT,
       payload: {
         isOpen: true,
-        alertMessage: err.response.data.message,
+        alertMessage: err.response,
         typeOfMessage: 'error',
       },
     });
@@ -163,7 +164,7 @@ export const submitNewTicket =
     }
   };
 export const submitNewTicketComment =
-  (comment, ticket_id) => async (dispatch) => {
+  (comment, ticket_id, onSuccess) => async (dispatch) => {
     if (comment === '') {
       return dispatch({
         type: SET_ALERT,
@@ -181,11 +182,11 @@ export const submitNewTicketComment =
       },
     };
 
-    const body = JSON.stringify(comment);
+    const body = JSON.stringify({'comment':comment});
 
     try {
       const res = await Axios.post(
-        `/create-comment-by-ticket/${ticket_id}`,
+        `comment/create-comment-by-ticket/${ticket_id}`,
         body,
         config
       );
@@ -194,9 +195,10 @@ export const submitNewTicketComment =
         payload: {
           isOpen: true,
           alertMessage: res.data.message,
-          typeOfMessage: 'Comment posted',
+          typeOfMessage: 'success',
         },
       });
+     onSuccess()
     } catch (err) {
       dispatch({
         type: SET_ALERT,
