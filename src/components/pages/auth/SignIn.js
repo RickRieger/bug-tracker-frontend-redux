@@ -50,7 +50,7 @@ const SignIn = () => {
 
     // eslint-disable-next-line no-console
     const userObj = {
-      email: 'john@doe.com',
+      email: 'guest@gmail.com',
       password: 'Apple251#',
     };
 

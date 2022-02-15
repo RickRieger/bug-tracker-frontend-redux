@@ -89,7 +89,7 @@ export const getAllCommentsByTicket = (ticketId) => async (dispatch) => {
     let res = await Axios.get(
       `/comment/get-all-comments-by-ticket/${ticketId}`
     );
-    console.log(res.data.comments)
+    
     dispatch({
       type: SET_ALL_COMMENTS_BY_TICKET,
       payload: res.data.comments,

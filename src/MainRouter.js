@@ -85,7 +85,7 @@ function MainRouter() {
           }
         />
         <Route
-          path='/ticket-details/:ticketId'
+          path='/ticket-details/:ticketId/:projectId'
           element={
             <RequireAuth redirectTo='/sign-in'>
               <TicketDetails />

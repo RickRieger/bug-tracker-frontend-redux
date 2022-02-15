@@ -5,40 +5,76 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { containerClasses, Divider } from '@mui/material';
+import { Box } from '@mui/material';
+import { Fragment } from 'react';
+import { Divider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 import UploadFilesToS3 from '../layout/UploadFilesToS3';
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getTicketByTicketId, getAllCommentsByTicket, submitNewTicketComment } from '../../store/actions/ticketActions';
+import {
+  getTicketByTicketId,
+  getAllCommentsByTicket,
+  submitNewTicketComment,
+} from '../../store/actions/ticketActions';
+import { getProjectById } from '../../store/actions/projectActions';
 import Spinner from '../ui/Spinner';
 import moment from 'moment';
 
 const TicketDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state.tickets);
+  const { ticket } = useSelector((state) => state.tickets);
+  const { project } = useSelector((state) => state.projects);
 
   useEffect(() => {
     dispatch(getTicketByTicketId(params.ticketId));
     dispatch(getAllCommentsByTicket(params.ticketId));
-  }, [dispatch, params.ticketId]);
+    dispatch(getProjectById(params.projectId));
+  }, [dispatch]);
 
-  const { comments } = useSelector((state) => state.tickets);
 
-  const [comment, setComment] = useState('')
+  console.log(project)
+  console.log(ticket)
 
-  const handleOnClick = () =>{
-    dispatch(submitNewTicketComment(comment, params.ticketId, onSuccess))
+
+  const [comment, setComment] = useState('');
+
+  const handleOnClick = () => {
+    dispatch(submitNewTicketComment(comment, params.ticketId, onSuccess));
+  };
+  const handleOnChange = (e) => {
+    setComment(e.target.value);
+  };
+  const onSuccess = () => {
+    dispatch(getAllCommentsByTicket(params.ticketId));
+    setComment('');
+  };
+
+  let color = 'info.light';
+  if (project) {
+    const priorityLevel = project.priority;
+    switch (priorityLevel) {
+      case 'Urgent':
+        color = 'error.dark';
+        break;
+      case 'High':
+        color = 'error.light';
+        break;
+      case 'Medium':
+        color = 'warning.light';
+        break;
+      case 'Low':
+        color = 'info.light';
+        break;
+      default:
+        color = 'info.light'
+    }
   }
-  const handleOnChange = (e)=>{
-    setComment(e.target.value)
-  }
-  const onSuccess = ()=>{
-    dispatch(getAllCommentsByTicket(params.ticketId))
-  }
-  
+
   if (!comments) {
     return (
       <Layout>
@@ -52,10 +88,10 @@ const TicketDetails = () => {
       {/*Project and Ticket Name*/}
       <Grid item xs={12} textAlign={'center'}>
         <Typography component='span' variant='h4'>
-          Ticket: A Bug Tracking App{' '}
+          {project.projectName}: {' '}
         </Typography>
         <Typography component='span' variant='h5'>
-          (User Authentication)
+          {ticket.title}
         </Typography>
       </Grid>
 
@@ -77,6 +113,7 @@ const TicketDetails = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             height: '100%',
+            width: '100%'
           }}
         >
           <Grid
@@ -86,22 +123,21 @@ const TicketDetails = () => {
               p: 1,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent:'center',
               height: '100%',
             }}
           >
-            <Typography variant='h5' gutterBottom>
+            <Typography variant='h5' gutterBottom             sx={{
+              p: 1,
+            }}>
               Ticket Details
             </Typography>
 
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Description:{' '}
+              {ticket.description} 
             </Typography>
-            <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Please make sure that the forms are laid out according to the wire
-              frame provided. The user should provide a strong password of no
-              less than eight characters in length.
-            </Typography>
+        
+              
+         
           </Grid>
           <Grid
             item
@@ -110,25 +146,38 @@ const TicketDetails = () => {
               p: 3,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'space-around',
               height: '100%',
+        
             }}
           >
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Assigned Developer: John Doe
+              Assigned Developer: 
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Created: December 15, 2021
+              Created at: {moment(ticket.createdAt).format('MMMM Do, YYYY')}
             </Typography>
 
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Type: New Feature
+              Ticket Type: {ticket.ticketType}
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Priority: Low
+              Ticket Priority:{' '}
+              <Box
+                component='span'
+                sx={{
+                  display: 'inline',
+                  padding: '5px',
+                  color: 'white',
+                  borderRadius: '10px',
+                  bgcolor: color,
+                }}
+              >
+                {ticket.priorityLevel}
+              </Box>
             </Typography>
             <Typography component='span' variant='h7' sx={{ my: 1 }}>
-              Ticket Status: Development
+              Ticket Status: {ticket.ticketStatus}
             </Typography>
           </Grid>
         </Paper>
@@ -209,23 +258,27 @@ const TicketDetails = () => {
                 scrollbarColor: 'red',
               }}
             >
-            {comments.map((comment)=>( 
-              <>
-              <Typography
-                key={comment._id}
-                sx={{
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  mt:1
-                }}
-              >
-                <div>{comment.commenter.firstName} {comment.commenter.lastName} posted on {moment(comment.createdAt).format('MMMM Do, YYYY')}</div>
-                <div>{comment.comment}</div>
-              </Typography>
-              <Divider sx={{ mt: 1 }} />
-              </>
-            ))}
+              {comments.map((comment) => (
+                <Fragment key={comment._id}>
+                  <Typography
+                    component="div"
+                    sx={{
+                      backgroundColor: 'lightblue',
+                      padding: '10px',
+                      borderRadius: '10px',
+                      mt: 1,
+                    }}
+                  >
+                    <div key={comment._id}>
+                      {comment.commenter.firstName} {comment.commenter.lastName}{' '}
+                      posted on{' '}
+                      {moment(comment.createdAt).format('MMMM Do, YYYY')}
+                    </div>
+                    <div>{comment.comment}</div>
+                  </Typography>
+                  <Divider sx={{ mt: 1 }} />
+                </Fragment>
+              ))}
             </Typography>
           </Grid>
         </Paper>

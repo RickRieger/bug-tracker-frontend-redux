@@ -10,8 +10,8 @@ const ProjectsWrapper = ({isAllProjects}) => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllProjects());
-  }, [dispatch]);
+    // dispatch(getAllProjects());
+  }, []);
   return <Projects projects={projects} isAllProjects={isAllProjects} />;
 };
 

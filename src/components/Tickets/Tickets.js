@@ -58,7 +58,7 @@ const Tickets = ({ tickets }) => {
                     color='primary'
                     href='#'
                     sx={{ mt: 3 }}
-                    onClick={()=>{navigate(`/ticket-details/${ticket._id}`)}}
+                    onClick={()=>{navigate(`/ticket-details/${ticket._id}/${ticket.projectId}`)}}
                   />
                 </TableCell>
               </TableRow>

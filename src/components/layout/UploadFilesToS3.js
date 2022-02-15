@@ -62,7 +62,7 @@ const CircularStatic = () => {
 
   React.useEffect(() => {
     setProgress(uploadProgress);
-  }, [uploadProgress]);
+  }, [uploadProgress, ]);
 
   if (progress === 100) {
     setTimeout(() => {
@@ -90,14 +90,15 @@ const UploadFilesToS3 = ({ params }) => {
   const { ticketId } = params;
   const dispatch = useDispatch();
   const { attachments } = useSelector((state) => state.tickets);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [selectedFile, setSelectedFile] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     dispatch(getAllAttachmentsByTicket(ticketId));
-  }, [dispatch, ticketId]);
+  }, [dispatch, ticketId, setDescription]);
 
   const handleUpload = async () => {
+    
     if (description === null) {
       dispatch({
         type: SET_ALERT,
@@ -151,6 +152,8 @@ const UploadFilesToS3 = ({ params }) => {
       UploadFileAndAttachToTicket(selectedFile[0], description, params.ticketId)
     );
     dispatch(getAllAttachmentsByTicket(params.ticketId));
+    setDescription('')
+    setSelectedFile('')
   };
 
   const downloadFiles = async (key) => {
@@ -164,6 +167,7 @@ const UploadFilesToS3 = ({ params }) => {
       });
 
       FileDownload(res.data, key);
+      
     } catch (error) {
       dispatch({
         type: SET_ALERT,
@@ -201,7 +205,7 @@ const UploadFilesToS3 = ({ params }) => {
           fullWidth
           name='Description'
           label='Description'
-          // value={state.projectName}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           autoFocus
         />
