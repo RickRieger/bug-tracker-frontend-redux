@@ -29,7 +29,6 @@ function DashboardContent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('use-effect')
     dispatch(getAllUsers());
     dispatch(getAllTickets());
     dispatch(getAllProjects());
@@ -150,7 +149,6 @@ function DashboardContent() {
             sx={{
               my: 2,
             }}
-     
             onClick={() => navigate('/create-project')}
           >
             + Create New Project

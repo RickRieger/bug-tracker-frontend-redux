@@ -18,6 +18,7 @@ export const getAllTickets = () => async (dispatch) => {
     const res = await Axios.get('/ticket/get-all-tickets', config);
 
     dispatch({ type: SET_ALL_TICKETS, payload: res.data });
+    console.log(res.data);
   } catch (err) {
     dispatch({
       type: SET_ALERT,
@@ -89,7 +90,7 @@ export const getAllCommentsByTicket = (ticketId) => async (dispatch) => {
     let res = await Axios.get(
       `/comment/get-all-comments-by-ticket/${ticketId}`
     );
-    
+
     dispatch({
       type: SET_ALL_COMMENTS_BY_TICKET,
       payload: res.data.comments,
@@ -182,7 +183,7 @@ export const submitNewTicketComment =
       },
     };
 
-    const body = JSON.stringify({'comment':comment});
+    const body = JSON.stringify({ comment: comment });
 
     try {
       const res = await Axios.post(
@@ -198,7 +199,7 @@ export const submitNewTicketComment =
           typeOfMessage: 'success',
         },
       });
-     onSuccess()
+      onSuccess();
     } catch (err) {
       dispatch({
         type: SET_ALERT,

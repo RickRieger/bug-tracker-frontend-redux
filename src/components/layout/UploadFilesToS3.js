@@ -62,7 +62,7 @@ const CircularStatic = () => {
 
   React.useEffect(() => {
     setProgress(uploadProgress);
-  }, [uploadProgress, ]);
+  }, [uploadProgress]);
 
   if (progress === 100) {
     setTimeout(() => {
@@ -98,8 +98,7 @@ const UploadFilesToS3 = ({ params }) => {
   }, [dispatch, ticketId, setDescription]);
 
   const handleUpload = async () => {
-    
-    if (description === null) {
+    if (!description) {
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -110,7 +109,7 @@ const UploadFilesToS3 = ({ params }) => {
       });
       return;
     }
-    if (selectedFile === null) {
+    if (!selectedFile) {
       dispatch({
         type: SET_ALERT,
         payload: {
@@ -136,24 +135,13 @@ const UploadFilesToS3 = ({ params }) => {
       }
     }
 
-    if (description === null) {
-      dispatch({
-        type: SET_ALERT,
-        payload: {
-          isOpen: true,
-          alertMessage: 'Description cannot be empty',
-          typeOfMessage: 'error',
-        },
-      });
-      return;
-    }
-
     await dispatch(
       UploadFileAndAttachToTicket(selectedFile[0], description, params.ticketId)
     );
+
     dispatch(getAllAttachmentsByTicket(params.ticketId));
-    setDescription('')
-    setSelectedFile('')
+    setDescription('');
+    setSelectedFile('');
   };
 
   const downloadFiles = async (key) => {
@@ -167,7 +155,6 @@ const UploadFilesToS3 = ({ params }) => {
       });
 
       FileDownload(res.data, key);
-      
     } catch (error) {
       dispatch({
         type: SET_ALERT,
@@ -180,8 +167,7 @@ const UploadFilesToS3 = ({ params }) => {
       });
     }
   };
-  
-  
+
   if (!attachments) {
     return <Spinner />;
   }
@@ -195,7 +181,7 @@ const UploadFilesToS3 = ({ params }) => {
         justifyContent='space-between'
         sx={{ mb: 1 }}
       >
-        Ticket Attachments
+        Ticket Attachments - (larger files may not work)
         <CircularStatic />
       </Typography>
 
