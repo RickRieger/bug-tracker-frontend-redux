@@ -89,6 +89,7 @@ export const login =
 
     try {
       const res = await Axios.post('/user/login', body, config);
+      console.log('res', res);
       let jwtToken = res.data.payload;
 
       setAxiosAuthToken(jwtToken);
@@ -118,7 +119,7 @@ export const login =
         type: SET_ALERT,
         payload: {
           isOpen: true,
-          alertMessage: err.response.data.payload,
+          alertMessage: err?.response?.data?.payload || 'An error occurred',
           typeOfMessage: 'error',
         },
       });

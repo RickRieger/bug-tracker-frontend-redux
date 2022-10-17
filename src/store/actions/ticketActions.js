@@ -24,7 +24,7 @@ export const getAllTickets = () => async (dispatch) => {
       type: SET_ALERT,
       payload: {
         isOpen: true,
-        alertMessage: err.response.data.message,
+        alertMessage: err?.response?.data?.message || 'An error occurred',
         typeOfMessage: 'error',
       },
     });
