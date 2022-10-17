@@ -1,5 +1,9 @@
 import Axios from '../../utils/Axios';
-import { SET_ALL_PERSONNEL, SET_PERSONNEL_BY_PROJECT, SET_ALERT } from './types';
+import {
+  SET_ALL_PERSONNEL,
+  SET_PERSONNEL_BY_PROJECT,
+  SET_ALERT,
+} from './types';
 
 export const getAllUsers = () => async (dispatch) => {
   const config = {
@@ -15,7 +19,7 @@ export const getAllUsers = () => async (dispatch) => {
       type: SET_ALERT,
       payload: {
         isOpen: true,
-        alertMessage: err.response.data.message,
+        alertMessage: err?.response?.data?.message,
         typeOfMessage: 'error',
       },
     });
